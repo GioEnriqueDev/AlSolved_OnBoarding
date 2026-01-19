@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALSOLVED - Start Recruiting</title>
+    <script src="../js/config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* PREMIUM CSS OVERHAUL - AGGRESSIVE FIX */
+        body {
+            background-color: #020617;
+            /* Slate 950 */
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.15), transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: #f8fafc;
+        }
+
+        /* Dark Premium Glass */
+        .glass-panel {
+            background: rgba(2, 6, 23, 0.9);
+            /* Dark opacity */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.9);
+        }
+
+        /* === CRITICAL VISIBILITY FIX === */
+        /* Force background to be dark and text to be white in ALL states */
+        .input-premium,
+        input {
+            background-color: rgba(2, 6, 23, 0.95) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* AUTOFILL OVERRIDE - The "White Background" Killer */
+        /* We use a long transition to delay the browser's default white background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px rgb(2, 6, 23) inset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            font-family: inherit !important;
+            caret-color: white !important;
+            transition: background-color 9999s ease-in-out 0s;
+        }
+
+        /* Focus State */
+        .input-premium:focus,
+        input:focus {
+            background-color: rgb(2, 6, 23) !important;
+            border-color: #ec4899 !important;
+            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.25) !important;
+            outline: none !important;
+            color: white !important;
+        }
+
+        .input-premium::placeholder,
+        ::placeholder {
+            color: #64748b !important;
+            opacity: 1;
+        }
+
+        .label-premium {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .shadow-glow {
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen flex items-center justify-center p-4 selection:bg-pink-500 selection:text-white relative overflow-hidden">
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none">
+        <div
+            class="absolute top-[-20%] left-1/2 transform -translate-x-1/2 w-[60%] h-[60%] bg-alsolved-pink/10 rounded-full blur-[150px]">
+        </div>
+    </div>
+
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-alsolved-darker">
+        <div class="w-full max-w-sm p-8 glass-panel rounded-2xl border border-slate-700 text-center">
+            <div
+                class="w-16 h-16 mx-auto bg-alsolved-dark rounded-full flex items-center justify-center mb-6 border border-slate-600">
+                <i class="fa-solid fa-lock text-2xl text-alsolved-pink"></i>
+            </div>
+            <h2 class="text-xl font-bold mb-2">Area Riservata Admin</h2>
+            <p class="text-slate-400 text-sm mb-6">Inserisci la password di sicurezza per accedere.</p>
+
+            <form onsubmit="checkPassword(event)">
+                <input type="password" id="password-input"
+                    class="w-full px-4 py-3 rounded-xl input-premium text-center tracking-widest mb-4"
+                    placeholder="••••••••" required autofocus>
+                <button type="submit"
+                    class="w-full py-4 bg-white text-slate-900 rounded-xl font-black text-lg hover:bg-slate-200 transition-all shadow-glow transform hover:-translate-y-1">
+                    ACCEDI ORA
+                </button>
+            </form>
+            <p id="login-error" class="text-red-500 text-xs mt-4 hidden"><i class="fa-solid fa-circle-exclamation"></i>
+                Password Errata,</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (HIDDEN BY DEFAULT) -->
+    <div id="main-content"
+        class="w-full max-w-lg animate-fade-in relative z-10 hidden blur-sm transition-all duration-700">
+
+        <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl border-t border-white/10">
+
+            <div class="text-center mb-8">
+                <img src="assets/logo.png" alt="ALSOLVED Logo" class="h-12 mx-auto mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                    Nuova Assunzione</h1>
+                <p class="text-slate-400 text-sm mt-2">Compila per avviare l'onboarding automatico</p>
+            </div>
+
+            <form onsubmit="submitForm(event)" class="space-y-5">
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="label-premium">Nome</label>
+                        <input type="text" id="nome" required
+                            class="w-full px-4 py-3 rounded-xl input-premium placeholder-slate-600"
+                            placeholder="Es. Mario" onblur="formatName(this)">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="label-premium">Cognome</label>
+                        <input type="text" id="cognome" required
+                            class="w-full px-4 py-3 rounded-xl input-premium placeholder-slate-600"
+                            placeholder="Es. Rossi" onblur="formatName(this)">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-premium">Email Personale</label>
+                    <div class="relative">
+                        <i
+                            class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500"></i>
+                        <input type="email" id="email" required
+                            class="w-full pl-11 pr-4 py-3 rounded-xl input-premium placeholder-slate-600"
+                            placeholder="mario.privato@email.com">
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1 ml-1">La guida verrà inviata a questo indirizzo.</p>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                    class="w-full py-5 mt-8 bg-gradient-to-r from-alsolved-pink to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-2xl font-black text-xl shadow-lg hover:shadow-pink-500/40 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 group">
+                    <span>INVIA INVITO</span>
+                    <i class="fa-solid fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+
+            <div id="successMessage"
+                class="hidden mt-6 bg-green-500/10 border border-green-500/20 rounded-xl p-4 flex items-start gap-4 animate-fade-in">
+                <div class="bg-green-500 rounded-full p-1 mt-0.5">
+                    <i class="fa-solid fa-check text-white text-xs"></i>
+                </div>
+                <div>
+                    <h4 class="text-green-400 font-bold text-sm">Invito Inviato!</h4>
+                    <p class="text-slate-400 text-xs mt-1">L'automazione Make è partita. Il candidato riceverà l'email a
+                        breve.</p>
+                    <button onclick="resetForm()"
+                        class="text-xs text-white underline mt-2 hover:text-green-400">Inserisci altro
+                        venditore</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Password encoded in config
+        const TARGET = ALSOLVED_CONFIG.security.admin_pwd_hash;
+
+        async function checkPassword(e) {
+            e.preventDefault();
+            const input = document.getElementById('password-input').value.trim(); // ENGINEERING FIX: Trim spaces
+            const errorMsg = document.getElementById('login-error');
+
+            // Decode and compare (Simple Client-Side Check)
+            const decoded = atob(TARGET);
+
+            if (input === decoded) {
+                // Success
+                const overlay = document.getElementById('login-overlay');
+                const main = document.getElementById('main-content');
+
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.remove(), 500);
+
+                main.classList.remove('hidden');
+                setTimeout(() => main.classList.remove('blur-sm'), 100);
+            } else {
+                // Error
+                errorMsg.classList.remove('hidden');
+                document.getElementById('password-input').classList.add('border-red-500');
+            }
+        }
+
+        // --- ENGINEERING: DATA FORMATTING (Ported from Onboarding) ---
+        function formatName(input) {
+            let val = input.value.trim().toLowerCase();
+            // Capitalize first letter of each word (handles "mario rossi" -> "Mario Rossi")
+            val = val.replace(/\b\w/g, c => c.toUpperCase());
+            input.value = val;
+        }
+
+        async function submitForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+
+            // Get values
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
+            const email = document.getElementById('email').value;
+
+            // Loading state
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Invio in corso...';
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            try {
+                // API call to Make/Zapier using Centralized Config
+                const response = await fetch(ALSOLVED_CONFIG.webhooks.admin_invite, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nome: nome,
+                        cognome: cognome,
+                        email_personale: email
+                    })
+                });
+
+                if (response.ok) {
+                    btn.classList.add('hidden'); // Hide button
+                    document.getElementById('successMessage').classList.remove('hidden');
+                } else {
+                    throw new Error('Errore nell\'invio');
+                }
+            } catch (error) {
+                alert("Attualmente il sistema non è in funzione, contatta l'amministrazione!");
+                console.error(error);
+            } finally {
+                if (!document.getElementById('successMessage').classList.contains('hidden')) {
+                    // Keep hidden if success
+                } else {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                }
+            }
+        }
+
+        function resetForm() {
+            document.querySelector('form').reset();
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('submitBtn').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

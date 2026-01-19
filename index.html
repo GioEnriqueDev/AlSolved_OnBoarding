@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALSOLVED - Sistema Venditori</title>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #020617;
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.15), transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glow Effect on Hover */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: 0.5s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(217, 70, 239, 0.5);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                0 0 30px -5px rgba(217, 70, 239, 0.15);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-4xl w-full text-center relative z-10">
+
+        <!-- Logo con Float Animation -->
+        <div class="animate-float mb-8">
+            <img src="assets/logo.png" alt="ALSOLVED"
+                class="h-20 md:h-24 mx-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        </div>
+
+        <div class="animate-fade-in delay-100">
+            <h1
+                class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 tracking-tight">
+                Sistema Onboarding
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-12 font-light">Seleziona il portale di accesso</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto animate-fade-in delay-200">
+
+            <!-- Admin Card -->
+            <a href="Admin/index.html"
+                class="glass-card p-10 rounded-[2rem] group cursor-pointer block text-left relative">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fa-solid fa-lock text-6xl transform rotate-12"></i>
+                </div>
+
+                <div
+                    class="w-16 h-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl flex items-center justify-center mb-6 border border-slate-700 group-hover:border-alsolved-pink group-hover:shadow-[0_0_20px_rgba(217,70,239,0.3)] transition-all duration-300">
+                    <i class="fa-solid fa-user-shield text-2xl text-alsolved-pink"></i>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-alsolved-pink transition-colors">Area
+                    Admin</h2>
+                <p class="text-slate-400 text-sm leading-relaxed">Accesso riservato alla direzione per invitare nuovi
+                    venditori.</p>
+
+                <div
+                    class="mt-8 flex items-center text-alsolved-pink font-bold text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-all translate-x-0 group-hover:translate-x-2">
+                    Accedi al pannello <i class="fa-solid fa-arrow-right ml-2"></i>
+                </div>
+            </a>
+
+            <!-- Onboarding Card -->
+            <a href="Onboarding/index.html"
+                class="glass-card p-10 rounded-[2rem] group cursor-pointer block text-left relative">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fa-solid fa-user-plus text-6xl transform -rotate-12"></i>
+                </div>
+
+                <div
+                    class="w-16 h-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl flex items-center justify-center mb-6 border border-slate-700 group-hover:border-green-500 group-hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all duration-300">
+                    <i class="fa-solid fa-rocket text-2xl text-green-500"></i>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Nuovo
+                    Venditore</h2>
+                <p class="text-slate-400 text-sm leading-relaxed">Procedura guidata di configurazione account e firma.
+                </p>
+
+                <div
+                    class="mt-8 flex items-center text-green-500 font-bold text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-all translate-x-0 group-hover:translate-x-2">
+                    Inizia configurazione <i class="fa-solid fa-arrow-right ml-2"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="mt-16 animate-fade-in delay-300">
+            <div
+                class="h-1 w-24 bg-gradient-to-r from-transparent via-slate-700 to-transparent mx-auto rounded-full mb-6">
+            </div>
+            <p
+                class="text-slate-600 text-xs uppercase tracking-[0.2em] hover:text-alsolved-pink transition-colors cursor-default">
+                Alsolved Internal System v2.0
+            </p>
+        </div>
+
+    </div>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+
+</html>
