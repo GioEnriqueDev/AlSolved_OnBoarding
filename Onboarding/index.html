@@ -164,8 +164,8 @@
 
         <!-- Header -->
         <div class="p-8 pb-0 text-center relative z-10">
-            <img src="assets/logo.png" alt="ALSOLVED"
-                class="h-12 mx-auto mb-6 opacity-90 transition-transform hover:scale-105">
+            <img src="../assets/logo_3d.png" alt="ALSOLVED"
+                class="h-16 mx-auto mb-6 opacity-90 transition-transform hover:scale-105 drop-shadow-lg animate-float">
 
             <div
                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 backdrop-blur-md">
@@ -586,21 +586,64 @@
             </div>
 
             <!-- Success State -->
-            <div id="step-success" class="step-container text-center py-8">
-                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fa-solid fa-check text-4xl text-green-400"></i>
+            <div id="step-success" class="step-container text-center py-10">
+                <!-- Animation Container -->
+                <div class="mb-8 relative">
+                    <div
+                        class="w-24 h-24 bg-gradient-to-tr from-green-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-[0_0_40px_rgba(34,197,94,0.4)] animate-bounce-slow relative z-10">
+                        <i class="fa-solid fa-flag-checkered text-5xl text-white"></i>
+                    </div>
+                    <!-- Confetti effect simulated with CSS dots if needed, or simple glow ring -->
+                    <div
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-green-500/20 rounded-full animate-ping">
+                    </div>
                 </div>
-                <h2 class="text-3xl font-bold text-white mb-2">Configurazione Completata!</h2>
-                <p class="text-slate-400 mb-8">
-                    Grazie <span id="success-name"></span>.<br>
-                    Il sistema sta attivando le tue utenze.<br>
-                    Controlla la tua nuova email tra 2 minuti.
-                </p>
-                <div class="animate-pulse text-xs text-slate-600 uppercase tracking-widest">Puoi chiudere questa pagina
-                </div>
-            </div>
 
+                <h2 class="text-4xl font-extrabold text-white mb-2 animate-fade-in">Benvenuto a Bordo! 🚀</h2>
+                <p class="text-xl text-slate-300 mb-8 animate-fade-in delay-100">
+                    Ottimo lavoro, <span id="success-name" class="text-green-400 font-bold"></span>!
+                </p>
+
+                <div
+                    class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700 max-w-lg mx-auto mb-8 text-left animate-fade-in delay-200">
+                    <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-bell text-yellow-400"></i> Prossimi Step (Fondamentali):
+                    </h3>
+                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                        Accedi subito alla tua nuova casella <strong>AlSolved</strong>. Abbiamo appena inviato due email
+                        che ti servono per lavorare:
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+                            <div
+                                class="mt-1 w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-brands fa-hubspot text-orange-500 text-xs"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white text-sm block">Invito HubSpot CRM</strong>
+                                <span class="text-slate-500 text-xs">Accetta l'invito per accedere al gestionale.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+                            <div
+                                class="mt-1 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-chart-line text-blue-400 text-xs"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white text-sm block">Il tuo Report Vendite</strong>
+                                <span class="text-slate-500 text-xs">Il foglio condiviso per monitorare i tuoi
+                                    numeri.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="text-slate-500 text-xs mt-6 mb-2 animate-pulse">Sessione chiusa in sicurezza.</p>
+                <div class="text-[10px] text-slate-600 uppercase tracking-widest">Alsolved Onboarding System</div>
+            </div>
         </div>
+
+    </div>
     </div>
 
     <script>

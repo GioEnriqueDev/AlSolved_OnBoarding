@@ -7,6 +7,7 @@
     <title>ALSOLVED - Start Recruiting</title>
     <script src="../js/config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* PREMIUM CSS OVERHAUL - AGGRESSIVE FIX */
         body {
@@ -126,7 +127,8 @@
         <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl border-t border-white/10">
 
             <div class="text-center mb-8">
-                <img src="assets/logo.png" alt="ALSOLVED Logo" class="h-12 mx-auto mb-6">
+                <img src="../assets/logo_3d.png" alt="ALSOLVED Logo"
+                    class="h-16 mx-auto mb-6 drop-shadow-lg animate-float">
                 <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
                     Nuova Assunzione</h1>
                 <p class="text-slate-400 text-sm mt-2">Compila per avviare l'onboarding automatico</p>
@@ -158,7 +160,18 @@
                             class="w-full pl-11 pr-4 py-3 rounded-xl input-premium placeholder-slate-600"
                             placeholder="mario.privato@email.com">
                     </div>
-                    <p class="text-xs text-slate-500 mt-1 ml-1">La guida verrà inviata a questo indirizzo.</p>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-premium">Telefono (Per Avviso)</label>
+                    <div class="relative">
+                        <i
+                            class="fa-solid fa-whatsapp absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500"></i>
+                        <input type="tel" id="phone" required
+                            class="w-full pl-11 pr-4 py-3 rounded-xl input-premium placeholder-slate-600"
+                            placeholder="3XX XXXXXXX">
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1 ml-1">Servirà per inviare notifica WhatsApp automatica.</p>
                 </div>
 
                 <button type="submit" id="submitBtn"
@@ -232,6 +245,7 @@
             const nome = document.getElementById('nome').value;
             const cognome = document.getElementById('cognome').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
 
             // Loading state
             btn.disabled = true;
@@ -248,27 +262,53 @@
                     body: JSON.stringify({
                         nome: nome,
                         cognome: cognome,
-                        email_personale: email
+                        email_personale: email,
+                        telefono: phone
                     })
                 });
 
                 if (response.ok) {
-                    btn.classList.add('hidden'); // Hide button
-                    document.getElementById('successMessage').classList.remove('hidden');
+                    // Normalize phone (remove spaces, ensure international if needed, though simple link works usually)
+                    const cleanPhone = phone.replace(/\s+/g, '').replace(/-/g, '');
+                    const message = `Ciao! Ti ho appena inviato la mail di attivazione per Alsolved. IMPORTANTE: Se non la vedi, controlla la cartella SPAM o Promozioni, è finita sicuramente lì!`;
+                    const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+                    Swal.fire({
+                        title: 'Invito Inviato! 🚀',
+                        text: 'La mail è partita. Ora avvisa il venditore su WhatsApp per evitare che finisca in Spam.',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: '<i class="fa-brands fa-whatsapp"></i> Avvisa su WhatsApp',
+                        cancelButtonText: 'Chiudi',
+                        confirmButtonColor: '#22c55e',
+                        cancelButtonColor: '#64748b',
+                        background: '#020617',
+                        color: '#fff'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.open(waLink, '_blank');
+                        }
+                        resetForm();
+                    });
+
                 } else {
                     throw new Error('Errore nell\'invio');
                 }
             } catch (error) {
-                alert("Attualmente il sistema non è in funzione, contatta l'amministrazione!");
+                // Specific System Error Message
+                Swal.fire({
+                    title: 'Errore di Sistema',
+                    text: "Attualmente il sistema non è in funzione, contatta l'amministrazione!",
+                    icon: 'error',
+                    background: '#020617',
+                    color: '#fff',
+                    confirmButtonColor: '#ef4444'
+                });
                 console.error(error);
             } finally {
-                if (!document.getElementById('successMessage').classList.contains('hidden')) {
-                    // Keep hidden if success
-                } else {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                }
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
             }
         }
 
