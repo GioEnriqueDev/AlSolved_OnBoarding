@@ -101,16 +101,83 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
                 0 0 30px -5px rgba(217, 70, 239, 0.15);
         }
+
+        /* Custom Animation for the "Living Logo" */
+        @keyframes float-conversation {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-5px) scale(1.02);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.4));
+                opacity: 1;
+            }
+
+            50% {
+                filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.7));
+                opacity: 0.9;
+            }
+        }
+
+        .animate-living-logo {
+            animation: float-conversation 4s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="bg-alsolved-darker text-white h-screen flex flex-col relative overflow-hidden font-sans">
 
-    <div class="max-w-4xl w-full text-center relative z-10">
+    <!-- Background Grid Logic -->
+    <div class="fixed inset-0 z-0 opacity-20 pointer-events-none"
+        style="background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px); background-size: 40px 40px;">
+    </div>
 
-        <!-- Logo Semplice -->
-        <div class="mb-8 animate-float">
-            <img src="assets/logo.png" alt="ALSOLVED" class="h-20 md:h-24 mx-auto drop-shadow-lg">
+    <!-- Ambient Light -->
+    <div
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-alsolved-pink/10 blur-[120px] rounded-full pointer-events-none z-0">
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center p-6 relative z-10 w-full">
+
+        <div class="max-w-4xl w-full text-center relative z-10">
+
+            <!-- PREMIUM VECTOR LOGO (Scaled Down & Colored) -->
+            <div class="mb-6 flex flex-col items-center animate-living-logo cursor-default group">
+                <div class="relative w-12 h-10 mb-2 transition-transform duration-500 group-hover:scale-105">
+                    <!-- Pink Bubble (Base) -->
+                    <i
+                        class="fa-solid fa-comment text-3xl text-[#d946ef] absolute top-0 left-0 transform -scale-x-100 animate-pulse-glow z-10"></i>
+                    <!-- White Bubble (Overlay) -->
+                    <i
+                        class="fa-regular fa-comment text-3xl text-white/95 absolute bottom-0 right-0 z-20 backdrop-blur-sm shadow-sm"></i>
+                    <!-- Sparkle Accent -->
+                    <i
+                        class="fa-solid fa-sparkles text-[#d946ef] absolute -top-2 -right-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></i>
+                </div>
+
+                <!-- Brand Name (Colored Accent) -->
+                <h1
+                    class="text-3xl md:text-4xl font-[900] tracking-tighter text-white drop-shadow-xl h-10 flex items-center">
+                    AL<span class="text-[#d946ef] drop-shadow-[0_0_10px_rgba(217,70,239,0.5)]">SOLVED</span>
+                </h1>
+                <p class="text-[0.6rem] text-slate-400 tracking-[0.4em] font-bold uppercase opacity-80">Enterprise
+                    Solutions</p>
+            </div>
         </div>
 
         <div class="animate-fade-in delay-100">
@@ -137,7 +204,8 @@
 
                 <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-alsolved-pink transition-colors">Area
                     Admin</h2>
-                <p class="text-slate-400 text-sm leading-relaxed">Accesso riservato alla direzione per invitare nuovi
+                <p class="text-slate-400 text-sm leading-relaxed">Accesso riservato alla direzione per invitare
+                    nuovi
                     venditori.</p>
 
                 <div
@@ -160,7 +228,8 @@
 
                 <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Nuovo
                     Venditore</h2>
-                <p class="text-slate-400 text-sm leading-relaxed">Procedura guidata di configurazione account e firma.
+                <p class="text-slate-400 text-sm leading-relaxed">Procedura guidata di configurazione account e
+                    firma.
                 </p>
 
                 <div
@@ -181,10 +250,10 @@
             </p>
         </div>
 
-    </div>
+        </div>
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- FontAwesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 
 </html>

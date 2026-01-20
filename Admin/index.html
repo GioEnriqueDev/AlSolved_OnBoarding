@@ -8,6 +8,7 @@
     <script src="../js/config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* PREMIUM CSS OVERHAUL - AGGRESSIVE FIX */
         body {
@@ -101,15 +102,11 @@
         <div
             class="glass-panel p-8 md:p-12 rounded-3xl shadow-2xl max-w-sm w-full text-center border border-white/10 relative overflow-hidden group">
 
-            <!-- Animated Lock Icon -->
-            <div class="mb-8 relative">
+            <!-- Animated Lock Icon (CSS Only - Crisp & Clean) -->
+            <div class="mb-6 relative">
                 <div
-                    class="w-24 h-24 mx-auto bg-gradient-to-br from-red-500/10 to-transparent rounded-full flex items-center justify-center border border-red-500/20 shadow-[0_0_30px_rgba(239,68,68,0.2)] animate-pulse">
-                    <i class="fa-solid fa-lock text-4xl text-red-500 drop-shadow-md"></i>
-                </div>
-                <!-- Shimmer effect -->
-                <div
-                    class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-150%] animate-shimmer">
+                    class="w-24 h-24 mx-auto bg-gradient-to-b from-red-500/20 to-transparent rounded-full flex items-center justify-center border border-red-500/30 shadow-[0_0_40px_rgba(239,68,68,0.3)] animate-pulse">
+                    <i class="fa-solid fa-lock text-5xl text-red-500 drop-shadow-[0_2px_10px_rgba(239,68,68,0.8)]"></i>
                 </div>
             </div>
             <h2 class="text-xl font-bold mb-2">Area Riservata Admin</h2>
@@ -136,8 +133,22 @@
         <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl border-t border-white/10">
 
             <div class="text-center mb-8">
-                <img src="../assets/logo_3d.png" alt="ALSOLVED Logo"
-                    class="h-16 mx-auto mb-6 drop-shadow-lg animate-float">
+                <!-- Vector Logo Small (Premium & Colored) -->
+                <div class="flex items-center justify-center gap-3 mb-6 animate-float group cursor-pointer">
+                    <div class="relative w-8 h-8 transition-transform duration-300 group-hover:rotate-6">
+                        <i
+                            class="fa-solid fa-comment text-2xl text-[#d946ef] absolute top-0 left-0 transform -scale-x-100 drop-shadow-[0_0_10px_rgba(236,72,153,0.6)]"></i>
+                        <i
+                            class="fa-regular fa-comment text-2xl text-white absolute bottom-0 right-0 drop-shadow-lg backdrop-blur-sm"></i>
+                    </div>
+                    <div class="text-left">
+                        <span class="block text-xl font-[900] text-white tracking-tighter leading-none">
+                            AL<span class="text-[#d946ef] drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]">SOLVED</span>
+                        </span>
+                        <span class="block text-[0.4rem] text-slate-400 font-bold tracking-[0.2em] uppercase">Admin
+                            Portal</span>
+                    </div>
+                </div>
                 <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
                     Nuova Collaborazione</h1>
                 <p class="text-slate-400 text-sm mt-2">Compila per avviare l'onboarding automatico</p>
