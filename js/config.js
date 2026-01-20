@@ -4,8 +4,8 @@ const ALSOLVED_CONFIG = {
         onboarding_submit: 'https://hook.eu1.make.com/poxojxs1mtjy60l396jddgiq24xj3vjo', // Onboarding -> Submit
     },
     colors: {
-        pink: '#d946ef',
-        pink_hover: '#c026d3',
+        pink: '#f43f5e', // Updated to Warm Rose/Reddish Pink (No more Purple)
+        pink_hover: '#e11d48',
         success: '#22c55e',
         error: '#ef4444'
     },

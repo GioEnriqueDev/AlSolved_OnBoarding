@@ -12,9 +12,11 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #020617;
+            background-color: #0f172a;
+            /* Slate 900 - Charcoal */
             background-image:
-                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.15), transparent 60%),
+                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.05), transparent 60%),
+                /* Reduced Purple/Pink haze to almost zero */
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
@@ -136,19 +138,69 @@
         .animate-pulse-glow {
             animation: pulse-glow 3s ease-in-out infinite;
         }
+
+        /* CINEMATIC ENGINE */
+        @keyframes aurora-1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translate(50px, -50px) scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes aurora-2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translate(-30px, 40px) scale(0.9);
+                opacity: 0.25;
+            }
+        }
+
+        .animate-aurora-1 {
+            animation: aurora-1 15s ease-in-out infinite alternate;
+        }
+
+        .animate-aurora-2 {
+            animation: aurora-2 20s ease-in-out infinite alternate;
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
     </style>
 </head>
 
-<body class="bg-alsolved-darker text-white h-screen flex flex-col relative overflow-hidden font-sans">
+<body class="bg-[#0f172a] text-white h-screen flex flex-col relative overflow-hidden font-sans">
 
-    <!-- Background Grid Logic -->
-    <div class="fixed inset-0 z-0 opacity-20 pointer-events-none"
-        style="background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px); background-size: 40px 40px;">
-    </div>
+    <!-- CINEMATIC BACKGROUND ENGINE -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- Film Grain Overlay -->
+        <div class="absolute inset-0 bg-noise opacity-30 z-20 mix-blend-overlay"></div>
 
-    <!-- Ambient Light -->
-    <div
-        class="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-alsolved-pink/10 blur-[120px] rounded-full pointer-events-none z-0">
+        <!-- Aurora Orb 1 (Warm Pink) -->
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#f43f5e] rounded-full blur-[120px] animate-aurora-1 z-0">
+        </div>
+
+        <!-- Aurora Orb 2 (Deep Indigo) -->
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#6366f1] rounded-full blur-[140px] animate-aurora-2 z-0">
+        </div>
+
+        <!-- Deep Void Overlay (Vignette) -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0f172a]/80 via-transparent to-[#0f172a]/80 z-10"></div>
     </div>
 
     <!-- Main Content -->
@@ -161,19 +213,19 @@
                 <div class="relative w-12 h-10 mb-2 transition-transform duration-500 group-hover:scale-105">
                     <!-- Pink Bubble (Base) -->
                     <i
-                        class="fa-solid fa-comment text-3xl text-[#d946ef] absolute top-0 left-0 transform -scale-x-100 animate-pulse-glow z-10"></i>
+                        class="fa-solid fa-comment text-3xl text-[#f43f5e] absolute top-0 left-0 transform -scale-x-100 animate-pulse-glow z-10"></i>
                     <!-- White Bubble (Overlay) -->
                     <i
                         class="fa-regular fa-comment text-3xl text-white/95 absolute bottom-0 right-0 z-20 backdrop-blur-sm shadow-sm"></i>
                     <!-- Sparkle Accent -->
                     <i
-                        class="fa-solid fa-sparkles text-[#d946ef] absolute -top-2 -right-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></i>
+                        class="fa-solid fa-sparkles text-[#f43f5e] absolute -top-2 -right-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></i>
                 </div>
 
                 <!-- Brand Name (Colored Accent) -->
                 <h1
                     class="text-3xl md:text-4xl font-[900] tracking-tighter text-white drop-shadow-xl h-10 flex items-center">
-                    AL<span class="text-[#d946ef] drop-shadow-[0_0_10px_rgba(217,70,239,0.5)]">SOLVED</span>
+                    AL<span class="text-white drop-shadow-md">SOLVED</span>
                 </h1>
                 <p class="text-[0.6rem] text-slate-400 tracking-[0.4em] font-bold uppercase opacity-80">Enterprise
                     Solutions</p>

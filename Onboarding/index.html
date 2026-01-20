@@ -141,17 +141,70 @@
             margin-bottom: 0.5rem;
             display: block;
         }
+
+        /* CINEMATIC ENGINE */
+        @keyframes aurora-1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.15;
+            }
+
+            50% {
+                transform: translate(50px, -50px) scale(1.1);
+                opacity: 0.25;
+            }
+        }
+
+        @keyframes aurora-2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.15;
+            }
+
+            50% {
+                transform: translate(-30px, 40px) scale(0.9);
+                opacity: 0.2;
+            }
+        }
+
+        .animate-aurora-1 {
+            animation: aurora-1 15s ease-in-out infinite alternate;
+        }
+
+        .animate-aurora-2 {
+            animation: aurora-2 20s ease-in-out infinite alternate;
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
     </style>
 </head>
 
 <body
-    class="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-pink-500 selection:text-white relative overflow-y-auto">
+    class="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-pink-500 selection:text-white relative overflow-y-auto bg-[#0f172a]">
 
-    <!-- Background Elements -->
+    <!-- CINEMATIC BACKGROUND ENGINE -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-alsolved-pink/10 rounded-full blur-[120px]">
+        <!-- Film Grain Overlay -->
+        <div class="absolute inset-0 bg-noise opacity-30 z-20 mix-blend-overlay"></div>
+
+        <!-- Aurora Orb 1 -->
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#f43f5e] rounded-full blur-[120px] animate-aurora-1 z-0">
         </div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[100px]"></div>
+
+        <!-- Aurora Orb 2 -->
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#6366f1] rounded-full blur-[100px] animate-aurora-2 z-0">
+        </div>
+
+        <!-- Deep Void Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0f172a]/80 via-transparent to-[#0f172a]/80 z-10"></div>
     </div>
 
     <!-- Main Container -->
@@ -168,12 +221,12 @@
             <div class="flex items-center justify-center gap-3 mb-6 animate-float select-none">
                 <div class="relative w-8 h-8">
                     <i
-                        class="fa-solid fa-comment text-2xl text-[#d946ef] absolute top-0 left-0 transform -scale-x-100 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]"></i>
+                        class="fa-solid fa-comment text-2xl text-[#f43f5e] absolute top-0 left-0 transform -scale-x-100 drop-shadow-[0_0_10px_rgba(244,63,94,0.5)]"></i>
                     <i class="fa-regular fa-comment text-2xl text-white absolute bottom-0 right-0"></i>
                 </div>
                 <div class="flex flex-col items-start justify-center">
                     <span class="text-xl font-[900] text-white tracking-tighter leading-none filter drop-shadow-lg">
-                        AL<span class="text-[#d946ef] drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]">SOLVED</span>
+                        AL<span class="text-white drop-shadow-md">SOLVED</span>
                     </span>
                     <span class="text-[0.4rem] text-slate-300 font-bold tracking-[0.2em] uppercase">Onboarding
                         System</span>
