@@ -588,17 +588,76 @@
             </div>
 
             <!-- STEP 5: Conferma e Invio -->
+            <!-- STEP 5: Conferma e Invio -->
             <div id="step-5" class="step-container">
                 <div class="max-w-xl mx-auto">
                     <form onsubmit="finishOnboarding(event)" class="space-y-6">
 
                         <div class="space-y-2">
-                            <label class="label-premium text-white">Conferma Email Creata</label>
+                            <label class="label-premium text-white">La tua nuova email (Conferma)</label>
                             <div class="relative">
                                 <i
                                     class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500"></i>
-                                <input type="email" id="input-email-final" required
-                                    class="w-full pl-10 pr-4 py-3 rounded-xl input-premium font-mono text-lg">
+                                <input type="email" id="input-email-final" required readonly
+                                    class="w-full pl-10 pr-4 py-3 rounded-xl input-premium font-mono text-lg opacity-75 cursor-not-allowed">
+                            </div>
+                        </div>
+
+                        <!-- VERIFICA ACTION -->
+                        <div class="bg-indigo-500/10 border-l-4 border-indigo-500 p-6 rounded-r-xl space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-indigo-500 rounded-full p-2 shadow-lg shadow-indigo-500/20">
+                                    <i class="fa-solid fa-paper-plane text-white text-lg"></i>
+                                </div>
+                                <h4 class="text-indigo-300 font-bold uppercase tracking-wider text-sm">Azione Richiesta
+                                    Ora
+                                </h4>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Prima di attivare l'account, invia un'email di prova al tuo responsabile per verificare
+                                che
+                                la firma sia corretta.
+                            </p>
+
+                            <!-- Primary Action Button -->
+                            <a id="mailto-btn" href="#"
+                                class="flex items-center justify-center w-full py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-bold shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-1 group">
+                                <i
+                                    class="fa-solid fa-envelope-open-text mr-3 text-xl group-hover:rotate-12 transition-transform"></i>
+                                INVIA EMAIL DI VERIFICA
+                            </a>
+
+                            <p class="text-center text-xs text-slate-500 my-2">oppure copia i dati manualmente:</p>
+
+                            <div class="grid grid-cols-1 gap-3">
+                                <!-- Minimal Copy Box Email -->
+                                <div
+                                    class="flex justify-between items-center bg-slate-900/50 rounded-lg p-3 border border-slate-700/50">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] text-slate-500 font-bold uppercase">A Chi:</span>
+                                        <code id="admin-email"
+                                            class="text-indigo-300 font-mono text-sm">info@alsolved.com</code>
+                                    </div>
+                                    <button type="button" onclick="copyToClipboard('admin-email')"
+                                        class="text-slate-500 hover:text-white transition-colors p-2">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Minimal Copy Box Object -->
+                                <div
+                                    class="flex justify-between items-center bg-slate-900/50 rounded-lg p-3 border border-slate-700/50">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] text-slate-500 font-bold uppercase">Oggetto:</span>
+                                        <code id="verify-subject"
+                                            class="text-slate-300 font-mono text-sm max-w-[200px] truncate">...</code>
+                                    </div>
+                                    <button type="button" onclick="copyToClipboard('verify-subject')"
+                                        class="text-slate-500 hover:text-white transition-colors p-2">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -612,7 +671,7 @@
                                         class="fa-solid fa-check text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 text-xs pointer-events-none"></i>
                                 </div>
                                 <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Ho creato
-                                    account e password correttamente</span>
+                                    l'account Google correttamente</span>
                             </label>
                             <label class="flex items-start gap-3 cursor-pointer group">
                                 <div class="relative flex items-center mt-0.5">
@@ -621,8 +680,9 @@
                                     <i
                                         class="fa-solid fa-check text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 text-xs pointer-events-none"></i>
                                 </div>
-                                <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Ho
-                                    verificato che l'inoltro funzioni</span>
+                                <span class="text-sm text-slate-300 group-hover:text-white transition-colors">
+                                    Ho inviato l'email di verifica al responsabile
+                                </span>
                             </label>
                             <label class="flex items-start gap-3 cursor-pointer group">
                                 <div class="relative flex items-center mt-0.5">
@@ -631,8 +691,9 @@
                                     <i
                                         class="fa-solid fa-check text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 text-xs pointer-events-none"></i>
                                 </div>
-                                <span class="text-sm text-slate-300 group-hover:text-white transition-colors">La firma
-                                    appare quando creo una nuova mail</span>
+                                <span class="text-sm text-slate-300 group-hover:text-white transition-colors">
+                                    Confermo che la firma nell'email è corretta
+                                </span>
                             </label>
                         </div>
 
@@ -642,8 +703,8 @@
                                 Indietro
                             </button>
                             <button type="submit" id="btn-submit"
-                                class="w-2/3 py-5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white rounded-2xl font-black text-xl shadow-lg hover:shadow-green-500/30 transition-all transform hover:-translate-y-1">
-                                <i class="fa-solid fa-rocket mr-2"></i> ATTIVA TUTTO
+                                class="w-2/3 py-5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white rounded-2xl font-black text-xl shadow-lg hover:shadow-green-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-rocket"></i> ATTIVA TUTTO
                             </button>
                         </div>
                     </form>
@@ -917,9 +978,23 @@
 
             if (step === 5) {
                 document.getElementById('input-email-final').value = state.suggestedEmail;
+
+                // Engineering: Pre-fill using GMAIL WEB LINK (Deep Link)
+                // This ensures it opens in the browser for the new GSuite/Gmail account
+                const subject = `[VERIFICA] ${state.nome} ${state.cognome}`;
+                const body = "Ecco la mia email di verifica con firma allegata.\n\n";
+
+                // Format: https://mail.google.com/mail/?view=cm&fs=1&to=TO&su=SUBJECT&body=BODY
+                const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=info@alsolved.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                document.getElementById('verify-subject').innerText = subject;
+                document.getElementById('mailto-btn').href = gmailLink;
+                // Force open in new tab
+                document.getElementById('mailto-btn').target = "_blank";
+
                 document.getElementById('step-badge').innerText = "Passaggio 5 di 5";
-                document.getElementById('step-title').innerText = "Attivazione";
-                document.getElementById('step-desc').innerText = "Conferma finale per il rilascio delle credenziali CRM.";
+                document.getElementById('step-title').innerText = "Ultimo step: Verifica Live";
+                document.getElementById('step-desc').innerText = "Invia un'email di prova al responsabile prima di attivare.";
                 document.getElementById('progress-bar').style.width = '95%';
             }
 
