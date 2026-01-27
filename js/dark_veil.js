@@ -143,11 +143,16 @@ export default class DarkVeil {
 
             this.start = performance.now();
             this.frameId = requestAnimationFrame(this.loop.bind(this));
-            console.log("DarkVeil: Loop started");
 
-        } catch (error) {
-            console.error("DarkVeil Init Error:", error);
-            alert("Errore DarkVeil: " + error.message);
+            console.log("DarkVeil: Animation Loop Started");
+            const dbg = document.getElementById('debug-status');
+            if (dbg) { dbg.innerText = "JS: Active (WebGL OK)"; dbg.classList.replace('bg-red-500', 'bg-green-500'); }
+
+        } catch (e) {
+            console.error("DarkVeil Init Error:", e);
+            const dbg = document.getElementById('debug-status');
+            if (dbg) { dbg.innerText = "JS Error: " + e.message; }
+            alert("DarkVeil Failed: " + e.message);
         }
     }
 
