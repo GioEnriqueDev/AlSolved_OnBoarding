@@ -287,9 +287,9 @@
         <script type="module">
             console.log("Module: Start");
 
-            // 1. IMPORT OGL (LOCAL)
-            import { Renderer, Program, Mesh, Triangle, Vec2 } from './js/ogl.mjs';
-            console.log("Module: OGL Imported (Local)");
+            // 1. IMPORT OGL (LOCAL SOURCE)
+            import { Renderer, Program, Mesh, Triangle, Vec2 } from './js/ogl/index.js';
+            console.log("Module: OGL Imported (Local Source)");
 
             // 2. SHADERS
             const vertex = `
