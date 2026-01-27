@@ -178,30 +178,6 @@
 
 <body class="text-white h-screen flex flex-col relative overflow-hidden font-sans">
 
-    <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
-    </div>
-
-    <!-- DEBUG: Error Trapper -->
-    <script>
-        window.addEventListener('error', function (e) {
-            const dbg = document.getElementById('debug-status');
-            if (!dbg) return;
-
-            // Resource loading error (script/img/link)
-            if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
-                const src = e.target.src || e.target.href || "Inline Script";
-                const filename = src.includes('/') ? src.split('/').pop() : src;
-                dbg.innerText = "Load Fail: " + filename;
-                dbg.classList.replace('bg-green-500', 'bg-red-500');
-            }
-            // Runtime error
-            else {
-                dbg.innerText = "JS Error: " + (e.message || e);
-                dbg.classList.replace('bg-green-500', 'bg-red-500');
-            }
-        }, true); // Capture phase true to catch resource errors
-    </script>
-
     <!-- DARK VEIL BACKGROUND -->
     <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none"></div>
 
@@ -437,15 +413,11 @@
                         this.start = performance.now();
                         this.frameId = requestAnimationFrame(this.loop.bind(this));
 
-                        console.log("DarkVeil: Animation Loop Started");
-                        const dbg = document.getElementById('debug-status');
-                        if (dbg) { dbg.innerText = "JS: Active (WebGL OK)"; dbg.classList.replace('bg-red-500', 'bg-green-500'); }
+
 
                     } catch (error) {
                         console.error("DarkVeil Init Error:", error);
-                        const dbg = document.getElementById('debug-status');
-                        if (dbg) { dbg.innerText = "Init Error: " + error.message; }
-                        alert("Errore DarkVeil: " + error.message);
+
                     }
                 }
 
@@ -477,7 +449,7 @@
 
             // 4. INIT
             window.addEventListener('load', () => {
-                console.log("Module: Load Event");
+
                 const container = document.getElementById('dark-veil-container');
                 if (container) {
                     try {
@@ -489,10 +461,10 @@
                             scanlineFrequency: 0,
                             warpAmount: 0
                         });
-                        console.log("Module: DarkVeil init called");
+
                     } catch (e) {
                         console.error(e);
-                        document.getElementById('debug-status').innerText = "Init Error: " + e.message;
+
                     }
                 } else {
                     console.error("DarkVeil container not found!");
@@ -502,3 +474,4 @@
 </body>
 
 </html>
+```
