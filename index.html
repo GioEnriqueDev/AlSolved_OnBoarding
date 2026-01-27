@@ -189,7 +189,9 @@
 
             // Resource loading error (script/img/link)
             if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
-                dbg.innerText = "Load Fail: " + (e.target.src || e.target.href).split('/').pop();
+                const src = e.target.src || e.target.href || "Inline Script";
+                const filename = src.includes('/') ? src.split('/').pop() : src;
+                dbg.innerText = "Load Fail: " + filename;
                 dbg.classList.replace('bg-green-500', 'bg-red-500');
             }
             // Runtime error
