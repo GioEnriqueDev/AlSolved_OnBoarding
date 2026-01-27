@@ -324,10 +324,18 @@
             }
 
             void mainImage(out vec4 fragColor,in vec2 fragCoord){
-                vec2 uv=fragCoord/uResolution.xy*2.-1.;
-                uv.y*=-1.;
-                uv+=uWarp*vec2(sin(uv.y*6.283+uTime*0.5),cos(uv.x*6.283+uTime*0.5))*0.05;
-                fragColor=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));
+                // Correct aspect ratio and center coordinates (0,0 at center of screen)
+                vec2 uv = (fragCoord - 0.5 * uResolution.xy) / min(uResolution.y, uResolution.x);
+                
+                // Zoom out slightly to see more of the pattern
+                uv *= 1.2; 
+                
+                // Optional: shift vertically if the 'wave' is naturally high
+                uv.y += 0.2; 
+
+                uv.y *= -1.;
+                uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
+                fragColor = cppn_fn(uv, 0.1 * sin(0.3 * uTime), 0.1 * sin(0.69 * uTime), 0.1 * sin(0.44 * uTime));
             }
 
             void main(){
