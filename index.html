@@ -327,11 +327,11 @@
                 // Correct aspect ratio and center coordinates (0,0 at center of screen)
                 vec2 uv = (fragCoord - 0.5 * uResolution.xy) / min(uResolution.y, uResolution.x);
                 
-                // Zoom out slightly to see more of the pattern
-                uv *= 1.2; 
+                // Zoom IN to make the wave bigger and more "surrounding"
+                uv *= 0.75; 
                 
-                // Optional: shift vertically if the 'wave' is naturally high
-                uv.y += 0.2; 
+                // Shift vertically to bring the "top wave" down to the center/bottom
+                uv.y += 0.55; 
 
                 uv.y *= -1.;
                 uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
