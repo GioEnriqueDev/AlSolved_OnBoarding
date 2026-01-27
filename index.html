@@ -181,6 +181,25 @@
     <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
     </div>
 
+    <!-- DEBUG: Error Trapper -->
+    <script>
+        window.addEventListener('error', function (e) {
+            const dbg = document.getElementById('debug-status');
+            if (!dbg) return;
+
+            // Resource loading error (script/img/link)
+            if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+                dbg.innerText = "Load Fail: " + (e.target.src || e.target.href).split('/').pop();
+                dbg.classList.replace('bg-green-500', 'bg-red-500');
+            }
+            // Runtime error
+            else {
+                dbg.innerText = "JS Error: " + (e.message || e);
+                dbg.classList.replace('bg-green-500', 'bg-red-500');
+            }
+        }, true); // Capture phase true to catch resource errors
+    </script>
+
     <!-- DARK VEIL BACKGROUND -->
     <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none"></div>
 
@@ -264,20 +283,29 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
         <script type="module">
+            console.log("Module: Start");
             import DarkVeil from './js/dark_veil.js';
+            console.log("Module: Import OK");
 
             // Wait for DOM to be ready
             window.addEventListener('load', () => {
+                console.log("Module: Load Event");
                 const container = document.getElementById('dark-veil-container');
                 if (container) {
-                    new DarkVeil('dark-veil-container', {
-                        hueShift: 242,
-                        noiseIntensity: 0,
-                        scanlineIntensity: 0,
-                        speed: 3,
-                        scanlineFrequency: 0,
-                        warpAmount: 0
-                    });
+                    try {
+                        new DarkVeil('dark-veil-container', {
+                            hueShift: 242,
+                            noiseIntensity: 0,
+                            scanlineIntensity: 0,
+                            speed: 3,
+                            scanlineFrequency: 0,
+                            warpAmount: 0
+                        });
+                        console.log("Module: DarkVeil init called");
+                    } catch (e) {
+                        console.error(e);
+                        document.getElementById('debug-status').innerText = "Init Error: " + e.message;
+                    }
                 } else {
                     console.error("DarkVeil container not found!");
                 }
