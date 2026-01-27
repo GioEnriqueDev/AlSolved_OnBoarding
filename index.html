@@ -287,9 +287,9 @@
         <script type="module">
             console.log("Module: Start");
 
-            // 1. IMPORT OGL (CDN)
-            import { Renderer, Program, Mesh, Triangle, Vec2 } from 'https://unpkg.com/ogl@1.0.11/dist/ogl.mjs';
-            console.log("Module: OGL Imported");
+            // 1. IMPORT OGL (LOCAL)
+            import { Renderer, Program, Mesh, Triangle, Vec2 } from './js/ogl.mjs';
+            console.log("Module: OGL Imported (Local)");
 
             // 2. SHADERS
             const vertex = `

@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "tailwindcss": "^4.1.18"
+  },
+  "dependencies": {
+    "ogl": "^1.0.11"
   }
 }
