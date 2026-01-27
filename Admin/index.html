@@ -17,9 +17,18 @@
             background-image:
                 radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.05), transparent 60%),
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
             color: #f8fafc;
+        }
+
+        /* PREMIUM DROPDOWN */
+        select.input-premium {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
         }
 
         /* Dark Premium Glass */
@@ -129,7 +138,7 @@
 </head>
 
 <body
-    class="min-h-screen flex items-center justify-center p-4 selection:bg-pink-500 selection:text-white relative overflow-hidden bg-[#0f172a]">
+    class="bg-slate-950 font-sans text-slate-200 antialiased min-h-screen overflow-x-hidden overflow-y-auto selection:bg-rose-500 selection:text-white relative overflow-hidden bg-[#0f172a]">
 
     <!-- CINEMATIC BACKGROUND ENGINE -->
     <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
@@ -179,11 +188,11 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT (HIDDEN BY DEFAULT) -->
+    <!-- MAIN CONTENT    <!-- Main Content -->
     <div id="main-content"
-        class="w-full max-w-lg animate-fade-in relative z-10 hidden blur-sm transition-all duration-700">
-
-        <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl border-t border-white/10">
+        class="min-h-screen flex items-center justify-center p-4 py-10 relative z-20 hidden transition-all duration-1000 blur-sm">
+        <div
+            class="glass-panel w-full max-w-2xl p-8 md:p-12 rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden animate-fade-in-up">
 
             <div class="text-center mb-8">
                 <!-- Vector Logo Small (Premium & Colored) -->
@@ -221,6 +230,42 @@
                         <input type="text" id="cognome" required
                             class="w-full px-4 py-3 rounded-xl input-premium placeholder-slate-600"
                             placeholder="Es. Rossi" onblur="formatName(this)">
+                    </div>
+                </div>
+
+                <!-- NEW: Dati Anagrafici -->
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-5 space-y-1">
+                        <label class="label-premium">Data di Nascita</label>
+                        <input type="date" id="data_nascita" required
+                            class="w-full px-4 py-3 rounded-xl input-premium placeholder-slate-600 text-slate-400">
+                    </div>
+                    <div class="col-span-3 space-y-1">
+                        <label class="label-premium">Sesso</label>
+                        <select id="sesso" required class="w-full px-4 py-3 rounded-xl input-premium text-slate-400">
+                            <option value="">-</option>
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                    <div class="col-span-4 space-y-1">
+                        <label class="label-premium">Luogo di Nascita</label>
+                        <input type="text" id="luogo_nascita" required
+                            class="w-full px-4 py-3 rounded-xl input-premium placeholder-slate-600" placeholder="Roma"
+                            onblur="formatName(this)">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-premium">Codice Fiscale</label>
+                    <div class="relative">
+                        <input type="text" id="codice_fiscale" required
+                            class="w-full px-4 py-3 pr-20 rounded-xl input-premium placeholder-slate-600 uppercase tracking-widest font-mono"
+                            placeholder="RSSMRA80A01H501U" oninput="this.value = this.value.toUpperCase()">
+                        <button type="button" onclick="calculateTaxCode()"
+                            class="absolute right-2 top-1.5 bottom-1.5 px-3 bg-slate-700 hover:bg-alsolved-pink text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1 group">
+                            <i class="fa-solid fa-bolt group-hover:animate-pulse"></i> CALCOLA
+                        </button>
                     </div>
                 </div>
 
@@ -335,6 +380,10 @@
                     body: JSON.stringify({
                         nome: nome,
                         cognome: cognome,
+                        data_nascita: document.getElementById('data_nascita').value,
+                        sesso: document.getElementById('sesso').value,
+                        luogo_nascita: document.getElementById('luogo_nascita').value,
+                        codice_fiscale: document.getElementById('codice_fiscale').value,
                         email_personale: email,
                         telefono: phone
                     })
@@ -390,7 +439,58 @@
             document.getElementById('successMessage').classList.add('hidden');
             document.getElementById('submitBtn').classList.remove('hidden');
         }
+
+
+        // --- ENGINEERING: TAX CODE CALCULATION ---
+        function calculateTaxCode() {
+            const nome = document.getElementById('nome').value.trim();
+            const cognome = document.getElementById('cognome').value.trim();
+            const data = document.getElementById('data_nascita').value;
+            const sesso = document.getElementById('sesso').value;
+            const luogoRaw = document.getElementById('luogo_nascita').value.trim();
+
+            if (!nome || !cognome || !data || !sesso || !luogoRaw) {
+                Swal.fire({
+                    title: 'Dati mancanti',
+                    text: 'Compila Nome, Cognome, Data, Sesso e Luogo per calcolare.',
+                    icon: 'warning',
+                    background: '#020617',
+                    color: '#fff',
+                    confirmButtonColor: '#f43f5e'
+                });
+                return;
+            }
+
+            // Find Comune Code
+            const luogoUpper = luogoRaw.toUpperCase();
+            const codiceComune = COMUNI[luogoUpper];
+
+            if (!codiceComune) {
+                Swal.fire({
+                    title: 'Comune non trovato',
+                    text: `Non trovo "${luogoRaw}" nel database. Controlla se è scritto correttamente (es. "Reggio nell'Emilia").`,
+                    icon: 'error',
+                    background: '#020617',
+                    color: '#fff',
+                    confirmButtonColor: '#f43f5e'
+                });
+                return;
+            }
+
+            const cf = CF_CALC.compute(nome, cognome, data, sesso, codiceComune);
+
+            if (cf) {
+                const input = document.getElementById('codice_fiscale');
+                input.value = cf;
+                // Visual Feedback
+                input.classList.add('border-green-500', 'text-green-400');
+                setTimeout(() => input.classList.remove('border-green-500', 'text-green-400'), 2000);
+            }
+        }
     </script>
+    <!-- Import Dynamic Resources -->
+    <script src="../js/comuni.js"></script>
+    <script src="../js/cf_calculator.js"></script>
 </body>
 
 </html>
