@@ -847,6 +847,36 @@
                     localStorage.removeItem('alsolved_onboarding_state');
                 }
             }
+            // Always check URL params (Overwrites storage if present)
+            populateFromURL();
+        }
+
+        // --- NEW: URL PRE-FILL LOGIC ---
+        function populateFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const nome = params.get('nome');
+            const cognome = params.get('cognome');
+            const telefono = params.get('telefono');
+
+            if (nome) {
+                state.nome = nome;
+                const el = document.getElementById('input-nome');
+                if (el) el.value = nome;
+            }
+            if (cognome) {
+                state.cognome = cognome;
+                const el = document.getElementById('input-cognome');
+                if (el) el.value = cognome;
+            }
+            if (telefono) {
+                state.telefono = telefono;
+                const el = document.getElementById('input-telefono');
+                if (el) el.value = telefono;
+            }
+            // Trigger Email Update if data is present
+            if (nome || cognome) {
+                updateSuggestedEmail();
+            }
         }
 
         function saveState(step) {
