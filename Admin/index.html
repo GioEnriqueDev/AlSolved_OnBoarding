@@ -171,8 +171,8 @@
                     <i class="fa-solid fa-lock text-5xl text-red-500 drop-shadow-[0_2px_10px_rgba(239,68,68,0.8)]"></i>
                 </div>
             </div>
-            <h2 class="text-xl font-bold mb-2">Area Riservata Admin</h2>
-            <p class="text-slate-400 text-sm mb-6">Inserisci la password di sicurezza per accedere.</p>
+            <h2 class="text-xl font-bold mb-2">Accesso Candidati</h2>
+            <p class="text-slate-400 text-sm mb-6">Inserisci il codice di accesso fornito dal tuo manager.</p>
 
             <form onsubmit="checkPassword(event)">
                 <input type="password" id="password-input"
@@ -305,12 +305,9 @@
                     <i class="fa-solid fa-check text-white text-xs"></i>
                 </div>
                 <div>
-                    <h4 class="text-green-400 font-bold text-sm">Invito Inviato!</h4>
-                    <p class="text-slate-400 text-xs mt-1">L'automazione Make è partita. Il candidato riceverà l'email a
-                        breve.</p>
-                    <button onclick="resetForm()"
-                        class="text-xs text-white underline mt-2 hover:text-green-400">Inserisci altro
-                        venditore</button>
+                    <h4 class="text-green-400 font-bold text-sm">Candidatura Inviata!</h4>
+                    <p class="text-slate-400 text-xs mt-1">Riceverai a breve una email con il contratto da firmare
+                        tramite YouSign. Controlla anche nello SPAM!</p>
                 </div>
             </div>
 
@@ -396,20 +393,14 @@
                     const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 
                     Swal.fire({
-                        title: 'Invito Inviato! 🚀',
-                        text: 'La mail è partita. Ora avvisa il venditore su WhatsApp per evitare che finisca in Spam.',
+                        title: 'Tutto pronto! 🚀',
+                        text: 'Dati inviati correttamente. Controlla la tua casella di posta (anche lo spam) tra un paio di minuti: riceverai il contratto YouSign.',
                         icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonText: '<i class="fa-brands fa-whatsapp"></i> Avvisa su WhatsApp',
-                        cancelButtonText: 'Chiudi',
+                        confirmButtonText: 'Ho capito',
                         confirmButtonColor: '#22c55e',
-                        cancelButtonColor: '#64748b',
                         background: '#020617',
                         color: '#fff'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open(waLink, '_blank');
-                        }
+                    }).then(() => {
                         resetForm();
                     });
 
