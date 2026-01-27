@@ -327,14 +327,16 @@
                 // Correct aspect ratio and center coordinates (0,0 at center of screen)
                 vec2 uv = (fragCoord - 0.5 * uResolution.xy) / min(uResolution.y, uResolution.x);
                 
-                // Zoom IN to make the wave bigger and more "surrounding"
-                uv *= 0.75; 
+                // MASSIVE ZOOM IN to fill the screen
+                uv *= 0.45; 
                 
-                // Shift vertically to bring the "top wave" down to the center/bottom
-                uv.y += 0.55; 
+                // Tweaking to center the "action"
+                // No manual Y-shift needed if zoom is sufficient, but let's nudge it
+                uv.y += 0.1;
 
-                uv.y *= -1.;
+                // uWarp adds the "liquid" distortion
                 uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
+                
                 fragColor = cppn_fn(uv, 0.1 * sin(0.3 * uTime), 0.1 * sin(0.69 * uTime), 0.1 * sin(0.44 * uTime));
             }
 
