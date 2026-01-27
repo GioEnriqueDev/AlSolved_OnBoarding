@@ -129,9 +129,6 @@ export default class DarkVeil {
             }
         });
 
-        this.mesh = new Mesh(this.gl, { geometry, this: this.program });
-        // NOTE: The previous line had a small typo 'this: this.program' -> 'program: this.program'
-        // Correcting in next line for actual execution
         this.mesh = new Mesh(this.gl, { geometry, program: this.program });
 
         this.resize = this.resize.bind(this);
