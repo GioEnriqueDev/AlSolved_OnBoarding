@@ -104,6 +104,7 @@ export default class DarkVeil {
         this.renderer = new Renderer({
             dpr: Math.min(window.devicePixelRatio, 2),
             alpha: false, // Ensure opaque background unless transparent desired
+            webgl: 1 // Force WebGL 1 for shader compatibility (gl_FragColor)
         });
 
         // Append canvas
