@@ -262,6 +262,18 @@
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+        <!-- DIAGNOSTIC: Non-module script test -->
+        <script>
+            console.log("Non-module script: Running");
+            window.addEventListener('DOMContentLoaded', function () {
+                var dbg = document.getElementById('debug-status');
+                if (dbg) {
+                    dbg.innerText = "JS: Script OK (waiting for module)";
+                    dbg.style.backgroundColor = "orange";
+                }
+            });
+        </script>
+
         <script type="module">
             console.log("Module: Start");
 
