@@ -181,7 +181,8 @@
     <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
     </div>
     <!-- DARK VEIL BACKGROUND -->
-    <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none bg-black"></div>
+    <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none bg-black"
+        style="transform: translateY(30vh);"></div>
 
     <!-- Main Content -->
     <main class="flex-grow flex flex-col items-center justify-center p-6 relative z-10 w-full">
@@ -340,7 +341,6 @@
             void mainImage(out vec4 fragColor,in vec2 fragCoord){
                 vec2 uv=fragCoord/uResolution.xy*2.-1.;
                 uv.y*=-1.;
-                uv.y+=0.5;
                 uv+=uWarp*vec2(sin(uv.y*6.283+uTime*0.5),cos(uv.x*6.283+uTime*0.5))*0.05;
                 fragColor=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));
             }
