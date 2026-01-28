@@ -265,9 +265,9 @@
         <script type="module">
             console.log("Module: Start");
 
-            // 1. IMPORT OGL (LOCAL SOURCE)
-            import { Renderer, Program, Mesh, Triangle, Vec2 } from './js/ogl/index.js';
-            console.log("Module: OGL Imported (Local Source)");
+            // 1. IMPORT OGL (CDN - esm.sh)
+            import { Renderer, Program, Mesh, Triangle, Vec2 } from 'https://esm.sh/ogl@1.0.11';
+            console.log("Module: OGL Imported (CDN)");
 
             // 2. SHADERS
             const vertex = `
