@@ -180,8 +180,9 @@
 
     <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
     </div>
-    <!-- DARK VEIL BACKGROUND -->
-    <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none bg-black"></div>
+    <!-- DARK VEIL BACKGROUND (600px height like ReactBits demo) -->
+    <div id="dark-veil-container" class="fixed left-0 right-0 z-0 pointer-events-none bg-black"
+        style="width: 100%; height: 600px; top: 50%; transform: translateY(-50%);"></div>
 
     <!-- Main Content -->
     <main class="flex-grow flex flex-col items-center justify-center p-6 relative z-10 w-full">
