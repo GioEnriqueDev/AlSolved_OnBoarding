@@ -327,21 +327,22 @@
                 // 1. Standard UV [-1, 1]
                 vec2 uv = fragCoord / uResolution.xy * 2.0 - 1.0;
                 
-                // 2. Aspect Ratio Correction (prevent stretch on wide screens)
+                // 2. Aspect Ratio
                 uv.x *= uResolution.x / uResolution.y;
 
-                // 3. SHIFT DOWN: Bring the "top curtain" to the center
-                // The pattern seems to live at high Y, so we add to Y to pull it into view?
-                // Or subtract? If we look at (0,0) and want to see Y=+1, we need input coordinate to be +1?
-                // Let's rely on empirical "it was at top".
-                // If I add to uv.y, I am sampling "higher" in the texture.
-                uv.y += 1.0; 
+                // 3. TARGETING THE PATTERN
+                // Empirical observation: Pattern is located at roughly Y = -1.0 in standard space
+                // (or +1.0 in flipped space).
+                // We shift the coordinate system so that Center (0) maps to -0.8
+                // This brings the "-1.0" feature up to the center.
+                uv.y -= 0.8; 
 
-                // 4. Zoom Out slightly to ensure we see the wave edges
-                uv *= 1.2;
+                // 4. Slight Zoom OUT to see more context (0.8 scale = 1.25x zoom out)
+                // Actually, let's keep it close to 1.0 to avoid black borders if the generator has limits.
+                // Let's us 0.9.
+                uv *= 0.9;
 
-                // 5. Flip Y (Legacy support for the function's expectation)
-                uv.y *= -1.0;
+                // 5. NO FLIP. Keeping it standard to avoid confusion.
 
                 // 6. Warp
                 uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
