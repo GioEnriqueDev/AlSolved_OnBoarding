@@ -265,9 +265,9 @@
         <script type="module">
             console.log("Module: Start");
 
-            // 1. IMPORT OGL (CDN - esm.sh)
-            import { Renderer, Program, Mesh, Triangle, Vec2 } from 'https://esm.sh/ogl@1.0.11';
-            console.log("Module: OGL Imported (CDN)");
+            // 1. IMPORT OGL (CDN - jsDelivr ESM)
+            import { Renderer, Program, Mesh, Triangle, Vec2 } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/+esm';
+            console.log("Module: OGL Imported (jsDelivr CDN)");
 
             // 2. SHADERS
             const vertex = `
@@ -277,7 +277,7 @@
 
             const fragment = `
             #ifdef GL_ES
-            precision highp float;
+            precision lowp float;
             #endif
             uniform vec2 uResolution;
             uniform float uTime;
