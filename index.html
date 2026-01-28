@@ -324,17 +324,26 @@
             }
 
             void mainImage(out vec4 fragColor,in vec2 fragCoord){
-                // Correct aspect ratio and center coordinates (0,0 at center of screen)
-                vec2 uv = (fragCoord - 0.5 * uResolution.xy) / min(uResolution.y, uResolution.x);
+                // 1. Standard UV [-1, 1]
+                vec2 uv = fragCoord / uResolution.xy * 2.0 - 1.0;
                 
-                // MASSIVE ZOOM IN to fill the screen
-                uv *= 0.45; 
-                
-                // Tweaking to center the "action"
-                // No manual Y-shift needed if zoom is sufficient, but let's nudge it
-                uv.y += 0.1;
+                // 2. Aspect Ratio Correction (prevent stretch on wide screens)
+                uv.x *= uResolution.x / uResolution.y;
 
-                // uWarp adds the "liquid" distortion
+                // 3. SHIFT DOWN: Bring the "top curtain" to the center
+                // The pattern seems to live at high Y, so we add to Y to pull it into view?
+                // Or subtract? If we look at (0,0) and want to see Y=+1, we need input coordinate to be +1?
+                // Let's rely on empirical "it was at top".
+                // If I add to uv.y, I am sampling "higher" in the texture.
+                uv.y += 1.0; 
+
+                // 4. Zoom Out slightly to ensure we see the wave edges
+                uv *= 1.2;
+
+                // 5. Flip Y (Legacy support for the function's expectation)
+                uv.y *= -1.0;
+
+                // 6. Warp
                 uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
                 
                 fragColor = cppn_fn(uv, 0.1 * sin(0.3 * uTime), 0.1 * sin(0.69 * uTime), 0.1 * sin(0.44 * uTime));
