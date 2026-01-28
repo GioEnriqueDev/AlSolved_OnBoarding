@@ -178,6 +178,8 @@
 
 <body class="bg-black text-white h-screen flex flex-col relative overflow-hidden font-sans">
 
+    <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
+    </div>
     <!-- DARK VEIL BACKGROUND -->
     <div id="dark-veil-container" class="fixed inset-0 z-0 pointer-events-none bg-black"></div>
 
@@ -324,26 +326,16 @@
             }
 
             void mainImage(out vec4 fragColor,in vec2 fragCoord){
-                // Reverting to ORIGINAL WORKING LOGIC
-                // 1. Basic normalized coordinates
+                // BASELINE RESTORE
                 vec2 uv = fragCoord / uResolution.xy * 2.0 - 1.0;
-                
-                // 2. The crucial flip that makes the pattern valid
-                uv.y *= -1.0;
-
-                // 3. Aspect Ratio (Keep this to avoid distortion, but keep it simple)
                 uv.x *= uResolution.x / uResolution.y;
-
-                // 4. Centering Strategy:
-                // Instead of guessing large offsets, we add a clear, small shift.
-                // If the wave was at the "top", it means it's near Y=-1 (after flip).
-                // To move it to center (0), we need to Add +0.5?
-                // Let's try explicit +0.5 offset AFTER flip.
-                uv.y += 0.5;
-
-                // 5. Warp (Standard)
-                uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
                 
+                // This FLIP was present when it worked (Red Wave at Top)
+                uv.y *= -1.0; 
+
+                // NO manual offsets. Let's see the wave first.
+                
+                uv += uWarp * vec2(sin(uv.y * 6.283 + uTime * 0.5), cos(uv.x * 6.283 + uTime * 0.5)) * 0.05;
                 fragColor = cppn_fn(uv, 0.1 * sin(0.3 * uTime), 0.1 * sin(0.69 * uTime), 0.1 * sin(0.44 * uTime));
             }
 
