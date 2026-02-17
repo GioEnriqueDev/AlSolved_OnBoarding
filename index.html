@@ -516,12 +516,48 @@
         });
 
         async function closeIntegrityModal() {
-            // Close modal
-            document.getElementById('integrity-modal').classList.remove('open');
+            const btn = document.getElementById('integrity-btn');
+            const originalText = btn.innerHTML;
 
-            // Proceed to Success
-            document.getElementById('success-name').innerText = state.nome;
-            goToStep('success');
+            // UX: Loading State
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Attivazione...';
+
+            // Prepare Payload
+            // Note: state.phone is used internally, but we send 'telefono' to match webhook expectations
+            const payload = {
+                nome: state.nome,
+                cognome: state.cognome,
+                telefono: state.phone,
+                email_effettiva: state.email
+            };
+
+            try {
+                // WEBHOOK_URL is defined in scope because config.js is loaded
+                // Fallback if not globally visible (safety check)
+                const url = (typeof ALSOLVED_CONFIG !== 'undefined') ?
+                    ALSOLVED_CONFIG.webhooks.onboarding_submit :
+                    'https://hook.eu1.make.com/poxojxs1mtjy60l396jddgiq24xj3vjo';
+
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // Success
+                document.getElementById('integrity-modal').classList.remove('open');
+                document.getElementById('success-name').innerText = state.nome;
+                goToStep('success');
+
+            } catch (error) {
+                console.error("Webhook Error:", error);
+                alert("Errore di connessione. Riprova o contatta l'assistenza.");
+
+                // Reset Button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
         }
 
         /* --- LIGHTBOX LOGIC --- */
