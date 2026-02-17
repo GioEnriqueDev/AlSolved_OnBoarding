@@ -4,489 +4,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALSOLVED - Sistema Venditori</title>
+    <title>Onboarding v2 - ALSOLVED</title>
     <script src="js/config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            color: #f8fafc;
-            overflow-x: hidden;
-            background-color: #000;
-            /* Fallback black */
-        }
-
-        /* Animations */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .delay-100 {
-            animation-delay: 0.1s;
-        }
-
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-300 {
-            animation-delay: 0.3s;
-        }
-
-        .glass-card {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Glow Effect on Hover */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: 0.5s;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            background: rgba(30, 41, 59, 0.7);
-            border-color: rgba(217, 70, 239, 0.5);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
-                0 0 30px -5px rgba(217, 70, 239, 0.15);
-        }
-
-        /* Custom Animation for the "Living Logo" */
-        @keyframes float-conversation {
-
-            0%,
-            100% {
-                transform: translateY(0px) scale(1);
-            }
-
-            50% {
-                transform: translateY(-5px) scale(1.02);
-            }
-        }
-
-        @keyframes pulse-glow {
-
-            0%,
-            100% {
-                filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.4));
-                opacity: 1;
-            }
-
-            50% {
-                filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.7));
-                opacity: 0.9;
-            }
-        }
-
-        .animate-living-logo {
-            animation: float-conversation 4s ease-in-out infinite;
-        }
-
-        .animate-pulse-glow {
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-
-        /* CINEMATIC ENGINE */
-        @keyframes aurora-1 {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.2;
-            }
-
-            50% {
-                transform: translate(50px, -50px) scale(1.1);
-                opacity: 0.3;
-            }
-        }
-
-        @keyframes aurora-2 {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.2;
-            }
-
-            50% {
-                transform: translate(-30px, 40px) scale(0.9);
-                opacity: 0.25;
-            }
-        }
-
-        .animate-aurora-1 {
-            animation: aurora-1 15s ease-in-out infinite alternate;
-        }
-
-        .animate-aurora-2 {
-            animation: aurora-2 20s ease-in-out infinite alternate;
-        }
-
-        .bg-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="bg-black text-white h-screen flex flex-col relative overflow-hidden font-sans">
+<body class="bg-indigo-50/50 min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div id="debug-status" class="fixed top-0 left-0 bg-red-500 text-white p-2 z-50 text-xs font-mono">JS: Waiting...
-    </div>
-    <!-- DARK VEIL BACKGROUND (100vh height for better proportions) -->
-    <div id="dark-veil-container" class="fixed left-0 right-0 z-0 pointer-events-none bg-black"
-        style="width: 100%; height: 100vh; top: 50%; transform: translateY(-50%);"></div>
+    <!-- Navbar Minimal -->
+    <nav class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
+        <div class="flex items-center gap-2 group">
+            <div class="relative w-8 h-8">
+                <i class="fa-solid fa-comment text-2xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                <i class="fa-regular fa-comment text-2xl text-slate-800 absolute bottom-0 right-0"></i>
+            </div>
+            <span class="text-xl font-black text-slate-900 tracking-tighter">
+                AL<span class="text-pink-500">SOLVED</span>
+            </span>
+        </div>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="flex-grow flex flex-col items-center justify-center p-6 relative z-10 w-full">
+    <!-- Main Container -->
+    <main class="w-full max-w-4xl card-premium overflow-hidden bg-white relative z-20">
 
-        <div class="max-w-4xl w-full text-center relative z-10">
-
-            <!-- PREMIUM VECTOR LOGO (Scaled Down & Colored) -->
-            <div class="mb-6 flex flex-col items-center animate-living-logo cursor-default group">
-                <div class="relative w-12 h-10 mb-2 transition-transform duration-500 group-hover:scale-105">
-                    <!-- Pink Bubble (Base) -->
-                    <i
-                        class="fa-solid fa-comment text-3xl text-[#f43f5e] absolute top-0 left-0 transform -scale-x-100 animate-pulse-glow z-10"></i>
-                    <!-- White Bubble (Overlay) -->
-                    <i
-                        class="fa-regular fa-comment text-3xl text-white/95 absolute bottom-0 right-0 z-20 backdrop-blur-sm shadow-sm"></i>
-                    <!-- Sparkle Accent -->
-                    <i
-                        class="fa-solid fa-sparkles text-[#f43f5e] absolute -top-2 -right-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></i>
-                </div>
-
-                <!-- Brand Name (Colored Accent) -->
-                <h1
-                    class="text-3xl md:text-4xl font-[900] tracking-tighter text-white drop-shadow-xl h-10 flex items-center">
-                    AL<span class="text-white drop-shadow-md">SOLVED</span>
-                </h1>
-                <p class="text-[0.6rem] text-slate-400 tracking-[0.4em] font-bold uppercase opacity-80">Enterprise
-                    Solutions</p>
+        <!-- Progress Header -->
+        <div class="bg-white border-b border-slate-100 p-6 md:p-8 flex items-center justify-between sticky top-0 z-10">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900" id="step-title">Benvenuto</h1>
+                <p class="text-slate-500 text-sm" id="step-desc">Configura il tuo ambiente di lavoro.</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="step-badge active" id="badge-1">1</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-2">2</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-3">3</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-4">4</div>
             </div>
         </div>
 
-        <div class="animate-fade-in delay-100">
-            <h1
-                class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 tracking-tight">
-                Sistema Onboarding
-            </h1>
-            <p class="text-slate-400 text-lg md:text-xl mb-12 font-light">Seleziona il portale di accesso</p>
+        <!-- Content Area -->
+        <div class="p-8 md:p-12 min-h-[500px] flex flex-col justify-center relative">
+
+            <!-- STEP 1: Dati Anagrafici -->
+            <div id="step-1" class="step-container animate-fade-in">
+                <div class="max-w-md mx-auto space-y-6">
+                    <div class="text-center mb-8">
+                        <div
+                            class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-500 text-3xl">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">Chi sei?</h2>
+                        <p class="text-slate-500">Inserisci i tuoi dati per generare la firma.</p>
+                    </div>
+
+                    <form onsubmit="goToStep(2); return false;" class="space-y-4">
+                        <div>
+                            <label class="label-google">Nome</label>
+                            <input type="text" id="input-nome" required class="input-google" placeholder="Mario"
+                                onblur="formatName(this)" oninput="updateSuggestedEmail()">
+                        </div>
+                        <div>
+                            <label class="label-google">Cognome</label>
+                            <input type="text" id="input-cognome" required class="input-google" placeholder="Rossi"
+                                onblur="formatName(this)" oninput="updateSuggestedEmail()">
+                        </div>
+                        <div>
+                            <label class="label-google">Cellulare</label>
+                            <input type="tel" id="input-telefono" required class="input-google"
+                                placeholder="333 1234567" onblur="formatPhone(this)">
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="submit" class="btn-primary w-full flex items-center justify-center gap-2">
+                                Inizia Configurazione <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- STEP 2: Creazione Account -->
+            <div id="step-2" class="step-container hidden">
+                <div class="max-w-2xl mx-auto space-y-8 text-center">
+
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 text-left rounded-r-lg">
+                        <p class="text-amber-800 font-medium text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>
+                            Usa <strong>ESATTAMENTE</strong> questi dati per creare la tua Gmail aziendale.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-pink-300 transition-colors cursor-pointer group"
+                            onclick="copyToClipboard('display-email')">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Nuova Email</p>
+                            <p id="display-email" class="font-mono text-lg font-bold text-slate-800 break-all mb-2">...
+                            </p>
+                            <span
+                                class="text-pink-500 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">Copia</span>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-pink-300 transition-colors cursor-pointer group"
+                            onclick="copyToClipboard('display-password')">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Password
+                                Obbligatoria</p>
+                            <p id="display-password" class="font-mono text-lg font-bold text-slate-800 mb-2">
+                                Alsolved2026!</p>
+                            <span
+                                class="text-pink-500 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">Copia</span>
+                        </div>
+                    </div>
+
+                    <a href="https://accounts.google.com/signup" target="_blank"
+                        class="block w-full py-4 bg-white border-2 border-slate-200 hover:border-blue-500 hover:text-blue-600 text-slate-600 rounded-xl font-bold transition-all shadow-sm">
+                        <i class="fa-brands fa-google mr-2"></i> Apri Gmail e Crea Account
+                    </a>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="goToStep(1)" class="btn-secondary w-1/3">Indietro</button>
+                        <button onclick="goToStep(3)" class="btn-primary w-2/3">Fatto, Prosegui <i
+                                class="fa-solid fa-check ml-2"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Configurazione Inoltro -->
+            <div id="step-3" class="step-container hidden">
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold mb-2">Colleghiamo le email 🔗</h2>
+                        <p class="text-slate-500">Dobbiamo ricevere le tue email per processare i contratti.</p>
+                    </div>
+
+                    <div
+                        class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-center relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-20 h-20 bg-indigo-100 rounded-full opacity-50"></div>
+                        <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1">Indirizzo di Inoltro
+                        </p>
+                        <code id="forward-email"
+                            class="text-2xl font-mono font-bold text-indigo-600">alsolveditalia@gmail.com</code>
+                        <div class="mt-4">
+                            <button onclick="copyToClipboard('forward-email')"
+                                class="bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:shadow-md transition-all">
+                                Copia Indirizzo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Images Grid -->
+                    <!-- Tutorial Images Grid (Zoomable) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Step 1 -->
+                        <div class="space-y-3 group cursor-zoom-in"
+                            onclick="openLightbox('assets/tutorial/guide_1.png?v=2')">
+                            <div
+                                class="relative overflow-hidden rounded-xl border-2 border-slate-100 shadow-sm transition-all group-hover:border-pink-400 group-hover:shadow-md">
+                                <img src="assets/tutorial/guide_1.png?v=3" class="w-full h-auto object-cover"
+                                    alt="Step 1: Impostazioni">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 text-3xl drop-shadow-lg transition-opacity"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span
+                                        class="bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">1</span>
+                                    <p class="text-sm font-bold text-slate-900">Apri Impostazioni</p>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    Clicca l'ingranaggio <i class="fa-solid fa-gear text-slate-400"></i> in alto a
+                                    destra e premi su
+                                    <strong>"Visualizza tutte le impostazioni"</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="space-y-3 group cursor-zoom-in"
+                            onclick="openLightbox('assets/tutorial/guide_2.png?v=2')">
+                            <div
+                                class="relative overflow-hidden rounded-xl border-2 border-slate-100 shadow-sm transition-all group-hover:border-pink-400 group-hover:shadow-md">
+                                <img src="assets/tutorial/guide_2.png?v=2" class="w-full h-auto object-cover"
+                                    alt="Step 2: Scheda Inoltro">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 text-3xl drop-shadow-lg transition-opacity"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span
+                                        class="bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">2</span>
+                                    <p class="text-sm font-bold text-slate-900">Scheda Inoltro</p>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    Nel menu in alto, clicca sulla scheda
+                                    <strong>"Inoltro e POP/IMAP"</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="space-y-3 group cursor-zoom-in"
+                            onclick="openLightbox('assets/tutorial/guide_3.png?v=2')">
+                            <div
+                                class="relative overflow-hidden rounded-xl border-2 border-slate-100 shadow-sm transition-all group-hover:border-pink-400 group-hover:shadow-md">
+                                <img src="assets/tutorial/guide_3.png?v=2" class="w-full h-auto object-cover"
+                                    alt="Step 3: Aggiungi Link">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 text-3xl drop-shadow-lg transition-opacity"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span
+                                        class="bg-slate-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+                                    <p class="text-sm font-bold text-slate-900">Aggiungi Email</p>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    Clicca sul pulsante
+                                    <strong>"Aggiungi un indirizzo di inoltro"</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="goToStep(2)" class="btn-secondary w-1/3">Indietro</button>
+                        <button onclick="goToStep(4)" class="btn-primary w-2/3">Fatto, Avanti <i
+                                class="fa-solid fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Firma e Invio -->
+            <div id="step-4" class="step-container hidden">
+                <div class="max-w-2xl mx-auto space-y-8">
+
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold">Ultimo passaggio: La Firma ✍️</h2>
+                    </div>
+
+                    <!-- Signature Preview -->
+                    <div class="bg-white p-6 rounded-xl border-2 border-dashed border-slate-300">
+                        <p class="text-xs text-center text-slate-400 mb-4 uppercase tracking-wider font-bold">Anteprima
+                            (Copia-Incolla su Gmail)</p>
+                        <div id="signature-preview" class="p-4 bg-white shadow-sm rounded border border-slate-100">
+                            <!-- JS Injected -->
+                        </div>
+                        <button onclick="copySignature()"
+                            class="w-full mt-4 py-3 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-900 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-copy"></i> Copia Firma
+                        </button>
+                        <p id="sig-copy-feedback"
+                            class="text-center text-green-500 text-xs font-bold mt-2 opacity-0 transition-opacity">
+                            Copiata negli appunti!</p>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-800 text-sm mb-1">Azione Finale Richiesta</h4>
+                        <p class="text-green-700 text-sm mb-3">Invia un'email di prova al responsabile per confermare
+                            che tutto funzioni.</p>
+                        <div class="flex gap-3">
+                            <a href="#" id="mailto-btn"
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition-colors">
+                                Invia Email Prova
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="goToStep(3)" class="btn-secondary w-1/3">Indietro</button>
+                        <button onclick="finishOnboarding(event)" class="btn-primary w-2/3">CONFERMA E ATTIVA <i
+                                class="fa-solid fa-rocket ml-2"></i></button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SUCCESS STATE -->
+            <div id="step-success" class="step-container hidden text-center py-10">
+                <div
+                    class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl animate-scale-in">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tutto Pronto! 🚀</h2>
+                <p class="text-slate-500 max-w-md mx-auto mb-8">
+                    Ottimo lavoro, <span id="success-name" class="font-bold text-slate-800"></span>.
+                    <br>Controlla la tua nuova email per l'invito al CRM HubSpot e il tuo Report Vendite.
+                </p>
+
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 inline-block text-left w-full max-w-sm">
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-4">Prossimi passi</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm text-slate-700">
+                            <i class="fa-brands fa-hubspot text-orange-500"></i> Accetta invito HubSpot
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-slate-700">
+                            <i class="fa-regular fa-file-excel text-green-600"></i> Apri Report Vendite
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
 
-        <div class="flex justify-center max-w-xl mx-auto animate-fade-in delay-200">
-
-            <!-- Candidatura Card (Step 1) -->
-            <a href="Candidatura/index.html"
-                class="glass-card p-10 rounded-[2rem] group cursor-pointer block text-left relative w-full">
-                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <i class="fa-solid fa-user-plus text-6xl transform rotate-12"></i>
-                </div>
-
-                <div
-                    class="w-16 h-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl flex items-center justify-center mb-6 border border-slate-700 group-hover:border-alsolved-pink group-hover:shadow-[0_0_20px_rgba(217,70,239,0.3)] transition-all duration-300">
-                    <i class="fa-solid fa-file-signature text-2xl text-alsolved-pink"></i>
-                </div>
-
-                <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-alsolved-pink transition-colors">Nuova
-                    Candidatura</h2>
-                <p class="text-slate-400 text-sm leading-relaxed">Sei un nuovo consulente? Inizia qui compilando i tuoi
-                    dati per il contratto.</p>
-
-                <div
-                    class="mt-8 flex items-center text-alsolved-pink font-bold text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-all translate-x-0 group-hover:translate-x-2">
-                    Inizia ora <i class="fa-solid fa-arrow-right ml-2"></i>
-                </div>
-            </a>
-
+        <!-- Footer -->
+        <div class="bg-slate-50 p-4 text-center border-t border-slate-100">
+            <p class="text-xs text-slate-400 font-semibold tracking-widest uppercase">Alsolved Internal System v2.1</p>
         </div>
+    </main>
 
-        <div class="mt-16 animate-fade-in delay-300">
+    <!-- INTEGRITY MODAL -->
+    <div id="integrity-modal" class="modal-backdrop">
+        <div class="modal-content text-center">
             <div
-                class="h-1 w-24 bg-gradient-to-r from-transparent via-slate-700 to-transparent mx-auto rounded-full mb-6">
+                class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-skull-crossbones"></i>
             </div>
-            <p
-                class="text-slate-600 text-xs uppercase tracking-[0.2em] hover:text-alsolved-pink transition-colors cursor-default">
-                Alsolved Internal System v2.0
+            <h3 class="text-xl font-bold text-slate-900 mb-2">ATTENZIONE: REGOLA SACRA</h3>
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Il "Report Vendite" è un file di sistema.<br><br>
+                <span class="font-bold text-red-600 block mb-2">⛔ NON MODIFICARE IL NOME DEL FILE.</span>
+                <span class="font-bold text-red-600 block">⛔ NON MODIFICARE LE COLONNE.</span>
+                <br>
+                Se lo fai, il sistema si blocca e non verrai pagato correttamente.
             </p>
+
+            <label
+                class="flex items-center justify-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors mb-6">
+                <input type="checkbox" id="integrity-check"
+                    class="w-5 h-5 text-red-600 rounded border-slate-300 focus:ring-red-500">
+                <span class="text-sm font-bold text-slate-700">Ho capito, non toccherò la struttura del file.</span>
+            </label>
+
+            <button onclick="closeIntegrityModal()" id="integrity-btn" disabled
+                class="btn-primary w-full bg-slate-300 cursor-not-allowed opacity-50">
+                Accetto e Proseguo
+            </button>
         </div>
+    </div>
 
-        </div>
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 bg-black/90 z-[60] hidden flex items-center justify-center opacity-0 transition-opacity duration-300"
+        onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white text-4xl hover:text-pink-500 transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightbox-img" src=""
+            class="max-w-[95%] max-h-[95vh] rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+        <p class="absolute bottom-4 left-0 w-full text-center text-white/70 text-sm pointer-events-none">Clicca ovunque
+            per chiudere</p>
+    </div>
 
-        <!-- FontAwesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- WHATSAPP SUPPORT -->
+    <a href="https://wa.me/393491119147" target="_blank" class="whatsapp-float hover:rotate-12"
+        title="Supporto WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-        <!-- DIAGNOSTIC: Non-module script test -->
-        <script>
-            console.log("Non-module script: Running");
-            window.addEventListener('DOMContentLoaded', function () {
-                var dbg = document.getElementById('debug-status');
-                if (dbg) {
-                    dbg.innerText = "JS: Script OK (waiting for module)";
-                    dbg.style.backgroundColor = "orange";
-                }
+    <!-- SCRIPTS -->
+    <script>
+        // CONFIG & STATE
+        // const WEBHOOK_URL = ALSOLVED_CONFIG.webhooks.onboarding_submit; // Ensure config.js is loaded
+
+        /* --- UTILS --- */
+        function copyToClipboard(elementId) {
+            const el = document.getElementById(elementId);
+            const text = el.tagName === 'INPUT' ? el.value : el.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Toast or visual feedback could go here
+                el.classList.add('text-green-500');
+                setTimeout(() => el.classList.remove('text-green-500'), 500);
             });
-        </script>
+        }
 
-        <script type="module">
-            console.log("Module: Start");
+        function formatName(input) {
+            let val = input.value.trim().toLowerCase();
+            val = val.replace(/\b\w/g, c => c.toUpperCase());
+            input.value = val;
+        }
 
-            // 1. IMPORT OGL (CDN - jsDelivr ESM)
-            import { Renderer, Program, Mesh, Triangle, Vec2 } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/+esm';
-            console.log("Module: OGL Imported (jsDelivr CDN)");
+        function formatPhone(input) {
+            // Simple formatter
+            let val = input.value.replace(/\D/g, '');
+            if (val.length > 0 && val[0] !== '3') val = '3' + val; // Assume mobile start
+            input.value = val.match(/.{1,3}/g)?.join(' ') || val;
+        }
 
-            // 2. SHADERS
-            const vertex = `
-            attribute vec2 position;
-            void main(){gl_Position=vec4(position,0.0,1.0);}
-            `;
+        /* --- LOGIC --- */
+        let currentStep = 1;
+        const state = { nome: '', cognome: '', phone: '', email: '' };
 
-            const fragment = `
-            #ifdef GL_ES
-            precision lowp float;
-            #endif
-            uniform vec2 uResolution;
-            uniform float uTime;
-            uniform float uHueShift;
-            uniform float uNoise;
-            uniform float uScan;
-            uniform float uScanFreq;
-            uniform float uWarp;
-            #define iTime uTime
-            #define iResolution uResolution
+        function updateSuggestedEmail() {
+            const nome = document.getElementById('input-nome').value.trim().toLowerCase().replace(/\s/g, '');
+            const cognome = document.getElementById('input-cognome').value.trim().toLowerCase().replace(/\s/g, '');
+            if (nome && cognome) {
+                const email = `${nome}${cognome}.alsolved@gmail.com`;
+                document.getElementById('display-email').innerText = email;
+                state.email = email; // Update state
+            }
+        }
 
-            vec4 buf[8];
-            float rand(vec2 c){return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453);}
+        function goToStep(step) {
+            // Validate Step 1
+            if (currentStep === 1 && step === 2) {
+                const n = document.getElementById('input-nome').value;
+                const c = document.getElementById('input-cognome').value;
+                const p = document.getElementById('input-telefono').value;
+                if (!n || !c || !p) return alert("Compila tutti i campi!");
 
-            mat3 rgb2yiq=mat3(0.299,0.587,0.114,0.596,-0.274,-0.322,0.211,-0.523,0.312);
-            mat3 yiq2rgb=mat3(1.0,0.956,0.621,1.0,-0.272,-0.647,1.0,-1.106,1.703);
+                state.nome = n;
+                state.cognome = c;
+                state.phone = p;
 
-            vec3 hueShiftRGB(vec3 col,float deg){
-                vec3 yiq=rgb2yiq*col;
-                float rad=radians(deg);
-                float cosh=cos(rad),sinh=sin(rad);
-                vec3 yiqShift=vec3(yiq.x,yiq.y*cosh-yiq.z*sinh,yiq.y*sinh+yiq.z*cosh);
-                return clamp(yiq2rgb*yiqShift,0.0,1.0);
+                // Create readable phone format for display (e.g. +39 333 123...)
+                const displayPhone = state.phone.replace(/(\+39)(\d{3})(\d{3})(\d+)/, '$1 $2 $3 $4');
+
+                const signature = `
+                    <table style="font-family: 'Arial', sans-serif; color: #1e293b; font-size: 14px; line-height: 1.4; border: 0; border-collapse: collapse;">
+                        <tr>
+                            <td style="border-left: 4px solid #d946ef; padding-left: 16px;">
+                                <div style="font-size: 20px; font-weight: 700; color: #d946ef; margin-bottom: 2px;">
+                                    ${state.nome} ${state.cognome}
+                                </div>
+                                <div style="color: #64748b; font-size: 14px; margin-bottom: 8px; font-weight: 500;">
+                                    Consulente Commerciale
+                                </div>
+                                <div style="color: #1e293b; font-size: 13px; margin-bottom: 16px; font-weight: 600;">
+                                    <span style="color: #d946ef;">📱</span> ${displayPhone}
+                                </div>
+                                <a href="https://www.alsolved.com" target="_blank" style="text-decoration: none; display: block; margin-bottom: 12px;">
+                                    <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4zOj-jHigSb1X1H0eaJV_pOir67j_ZG_b1MYvZuQ-RIdWtKFG6tN6XJpntMLlZGM4RFQvqMVkWRgau8" 
+                                    alt="AlSolved Logo" width="160" style="width: 160px; height: auto; display: block; border: 0;">
+                                </a>
+                                <div style="font-size: 10px; color: #94a3b8; line-height: 1.3; max-width: 300px;">
+                                    Le informazioni contenute in questo messaggio sono riservate e confidenziali.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+                document.getElementById('signature-preview').innerHTML = signature;
+
+                // Mailto Link
+                const subject = `Verifica Firma: ${state.nome} ${state.cognome}`;
+                document.getElementById('mailto-btn').href = `mailto:info@alsolved.com?subject=${encodeURIComponent(subject)}&body=Ecco la mia email di prova.`;
             }
 
-            vec4 sigmoid(vec4 x){return 1./(1.+exp(-x));}
+            // Hide current
+            document.getElementById(`step-${currentStep}`).classList.add('hidden');
+            document.getElementById(`step-${currentStep}`).classList.remove('animate-fade-in');
 
-            vec4 cppn_fn(vec2 coordinate,float in0,float in1,float in2){
-                buf[6]=vec4(coordinate.x,coordinate.y,0.3948333106474662+in0,0.36+in1);
-                buf[7]=vec4(0.14+in2,sqrt(coordinate.x*coordinate.x+coordinate.y*coordinate.y),0.,0.);
-                buf[0]=mat4(vec4(6.5404263,-3.6126034,0.7590882,-1.13613),vec4(2.4582713,3.1660357,1.2219609,0.06276096),vec4(-5.478085,-6.159632,1.8701609,-4.7742867),vec4(6.039214,-5.542865,-0.90925294,3.251348))*buf[6]+mat4(vec4(0.8473259,-5.722911,3.975766,1.6522468),vec4(-0.24321538,0.5839259,-1.7661959,-5.350116),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(0.21808943,1.1243913,-1.7969975,5.0294676);
-                buf[1]=mat4(vec4(-3.3522482,-6.0612736,0.55641043,-4.4719114),vec4(0.8631464,1.7432913,5.643898,1.6106541),vec4(2.4941394,-3.5012043,1.7184316,6.357333),vec4(3.310376,8.209261,1.1355612,-1.165539))*buf[6]+mat4(vec4(5.24046,-13.034365,0.009859298,15.870829),vec4(2.987511,3.129433,-0.89023495,-1.6822904),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-5.9457836,-6.573602,-0.8812491,1.5436668);
-                buf[0]=sigmoid(buf[0]);buf[1]=sigmoid(buf[1]);
-                buf[2]=mat4(vec4(-15.219568,8.095543,-2.429353,-1.9381982),vec4(-5.951362,4.3115187,2.6393783,1.274315),vec4(-7.3145227,6.7297835,5.2473326,5.9411426),vec4(5.0796127,8.979051,-1.7278991,-1.158976))*buf[6]+mat4(vec4(-11.967154,-11.608155,6.1486754,11.237008),vec4(2.124141,-6.263192,-1.7050359,-0.7021966),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-4.17164,-3.2281182,-4.576417,-3.6401186);
-                buf[3]=mat4(vec4(3.1832156,-13.738922,1.879223,3.233465),vec4(0.64300746,12.768129,1.9141049,0.50990224),vec4(-0.049295485,4.4807224,1.4733979,1.801449),vec4(5.0039253,13.000481,3.3991797,-4.5561905))*buf[6]+mat4(vec4(-0.1285731,7.720628,-3.1425676,4.742367),vec4(0.6393625,3.714393,-0.8108378,-0.39174938),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-1.1811101,-21.621881,0.7851888,1.2329718);
-                buf[2]=sigmoid(buf[2]);buf[3]=sigmoid(buf[3]);
-                buf[4]=mat4(vec4(5.214916,-7.183024,2.7228765,2.6592617),vec4(-5.601878,-25.3591,4.067988,0.4602802),vec4(-10.57759,24.286327,21.102104,37.546658),vec4(4.3024497,-1.9625226,2.3458803,-1.372816))*buf[0]+mat4(vec4(-17.6526,-10.507558,2.2587414,12.462782),vec4(6.265566,-502.75443,-12.642513,0.9112289),vec4(-10.983244,20.741234,-9.701768,-0.7635988),vec4(5.383626,1.4819539,-4.1911616,-4.8444734))*buf[1]+mat4(vec4(12.785233,-16.345072,-0.39901125,1.7955981),vec4(-30.48365,-1.8345358,1.4542528,-1.1118771),vec4(19.872723,-7.337935,-42.941723,-98.52709),vec4(8.337645,-2.7312303,-2.2927687,-36.142323))*buf[2]+mat4(vec4(-16.298317,3.5471997,-0.44300047,-9.444417),vec4(57.5077,-35.609753,16.163465,-4.1534753),vec4(-0.07470326,-3.8656476,-7.0901804,3.1523974),vec4(-12.559385,-7.077619,1.490437,-0.8211543))*buf[3]+vec4(-7.67914,15.927437,1.3207729,-1.6686112);
-                buf[5]=mat4(vec4(-1.4109162,-0.372762,-3.770383,-21.367174),vec4(-6.2103205,-9.35908,0.92529047,8.82561),vec4(11.460242,-22.348068,13.625772,-18.693201),vec4(-0.3429052,-3.9905605,-2.4626114,-0.45033523))*buf[0]+mat4(vec4(7.3481627,-4.3661838,-6.3037653,-3.868115),vec4(1.5462853,6.5488915,1.9701879,-0.58291394),vec4(6.5858274,-2.2180402,3.7127688,-1.3730392),vec4(-5.7973905,10.134961,-2.3395722,-5.965605))*buf[1]+mat4(vec4(-2.5132585,-6.6685553,-1.4029363,-0.16285264),vec4(-0.37908727,0.53738135,4.389061,-1.3024765),vec4(-0.70647055,2.0111287,-5.1659346,-3.728635),vec4(-13.562562,10.487719,-0.9173751,-2.6487076))*buf[2]+mat4(vec4(-8.645013,6.5546675,-6.3944063,-5.5933375),vec4(-0.57783127,-1.077275,36.91025,5.736769),vec4(14.283112,3.7146652,7.1452246,-4.5958776),vec4(2.7192075,3.6021907,-4.366337,-2.3653464))*buf[3]+vec4(-5.9000807,-4.329569,1.2427121,8.59503);
-                buf[4]=sigmoid(buf[4]);buf[5]=sigmoid(buf[5]);
-                buf[6]=mat4(vec4(-1.61102,0.7970257,1.4675229,0.20917463),vec4(-28.793737,-7.1390953,1.5025433,4.656581),vec4(-10.94861,39.66238,0.74318546,-10.095605),vec4(-0.7229728,-1.5483948,0.7301322,2.1687684))*buf[0]+mat4(vec4(3.2547753,21.489103,-1.0194173,-3.3100595),vec4(-3.7316632,-3.3792162,-7.223193,-0.23685838),vec4(13.1804495,0.7916005,5.338587,5.687114),vec4(-4.167605,-17.798311,-6.815736,-1.6451967))*buf[1]+mat4(vec4(0.604885,-7.800309,-7.213122,-2.741014),vec4(-3.522382,-0.12359311,-0.5258442,0.43852118),vec4(9.6752825,-22.853785,2.062431,0.099892326),vec4(-4.3196306,-17.730087,2.5184598,5.30267))*buf[2]+mat4(vec4(-6.545563,-15.790176,-6.0438633,-5.415399),vec4(-43.591583,28.551912,-16.00161,18.84728),vec4(4.212382,8.394307,3.0958717,8.657522),vec4(-5.0237565,-4.450633,-4.4768,-5.5010443))*buf[3]+mat4(vec4(1.6985557,-67.05806,6.897715,1.9004834),vec4(1.8680354,2.3915145,2.5231109,4.081538),vec4(11.158006,1.7294737,2.0738268,7.386411),vec4(-4.256034,-306.24686,8.258898,-17.132736))*buf[4]+mat4(vec4(1.6889864,-4.5852966,3.8534803,-6.3482175),vec4(1.3543309,-1.2640043,9.932754,2.9079645),vec4(-5.2770967,0.07150358,-0.13962056,3.3269649),vec4(28.34703,-4.918278,6.1044083,4.085355))*buf[5]+vec4(6.6818056,12.522166,-3.7075126,-4.104386);
-                buf[7]=mat4(vec4(-8.265602,-4.7027016,5.098234,0.7509808),vec4(8.6507845,-17.15949,16.51939,-8.884479),vec4(-4.036479,-2.3946867,-2.6055532,-1.9866527),vec4(-2.2167742,-1.8135649,-5.9759874,4.8846445))*buf[0]+mat4(vec4(6.7790847,3.5076547,-2.8191125,-2.7028968),vec4(-5.743024,-0.27844876,1.4958696,-5.0517144),vec4(13.122226,15.735168,-2.9397483,-4.101023),vec4(-14.375265,-5.030483,-6.2599335,2.9848232))*buf[1]+mat4(vec4(4.0950394,-0.94011575,-5.674733,4.755022),vec4(4.3809423,4.8310084,1.7425908,-3.437416),vec4(2.117492,0.16342592,-104.56341,16.949184),vec4(-5.22543,-2.994248,3.8350096,-1.9364246))*buf[2]+mat4(vec4(-5.900337,1.7946124,-13.604192,-3.8060522),vec4(6.6583457,31.911177,25.164474,91.81147),vec4(11.840538,4.1503043,-0.7314397,6.768467),vec4(-6.3967767,4.034772,6.1714606,-0.32874924))*buf[3]+mat4(vec4(3.4992442,-196.91893,-8.923708,2.8142626),vec4(3.4806502,-3.1846354,5.1725626,5.1804223),vec4(-2.4009497,15.585794,1.2863957,2.0252278),vec4(-71.25271,-62.441242,-8.138444,0.50670296))*buf[4]+mat4(vec4(-12.291733,-11.176166,-7.3474145,4.390294),vec4(10.805477,5.6337385,-0.9385842,-4.7348723),vec4(-12.869276,-7.039391,5.3029537,7.5436664),vec4(1.4593618,8.91898,3.5101583,5.840625))*buf[5]+vec4(2.2415268,-6.705987,-0.98861027,-2.117676);
-                buf[6]=sigmoid(buf[6]);buf[7]=sigmoid(buf[7]);
-                buf[0]=mat4(vec4(1.6794263,1.3817469,2.9625452,0.),vec4(-1.8834411,-1.4806935,-3.5924516,0.),vec4(-1.3279216,-1.0918057,-2.3124623,0.),vec4(0.2662234,0.23235129,0.44178495,0.))*buf[0]+mat4(vec4(-0.6299101,-0.5945583,-0.9125601,0.),vec4(0.17828953,0.18300213,0.18182953,0.),vec4(-2.96544,-2.5819945,-4.9001055,0.),vec4(1.4195864,1.1868085,2.5176322,0.))*buf[1]+mat4(vec4(-1.2584374,-1.0552157,-2.1688404,0.),vec4(-0.7200217,-0.52666044,-1.438251,0.),vec4(0.15345335,0.15196142,0.272854,0.),vec4(0.945728,0.8861938,1.2766753,0.))*buf[2]+mat4(vec4(-2.4218085,-1.968602,-4.35166,0.),vec4(-22.683098,-18.0544,-41.954372,0.),vec4(0.63792,0.5470648,1.1078634,0.),vec4(-1.5489894,-1.3075932,-2.6444845,0.))*buf[3]+mat4(vec4(-0.49252132,-0.39877754,-0.91366625,0.),vec4(0.95609266,0.7923952,1.640221,0.),vec4(0.30616966,0.15693925,0.8639857,0.),vec4(1.1825981,0.94504964,2.176963,0.))*buf[4]+mat4(vec4(0.35446745,0.3293795,0.59547555,0.),vec4(-0.58784515,-0.48177817,-1.0614829,0.),vec4(2.5271258,1.9991658,4.6846647,0.),vec4(0.13042648,0.08864098,0.30187556,0.))*buf[5]+mat4(vec4(-1.7718065,-1.4033192,-3.3355875,0.),vec4(3.1664357,2.638297,5.378702,0.),vec4(-3.1724713,-2.6107926,-5.549295,0.),vec4(-2.851368,-2.249092,-5.3013067,0.))*buf[6]+mat4(vec4(1.5203838,1.2212278,2.8404984,0.),vec4(1.5210563,1.2651345,2.683903,0.),vec4(2.9789467,2.4364579,5.2347264,0.),vec4(2.2270417,1.8825914,3.8028636,0.))*buf[7]+vec4(-1.5468478,-3.6171484,0.24762098,0.);
-                buf[0]=sigmoid(buf[0]);
-                return vec4(buf[0].x,buf[0].y,buf[0].z,1.);
+            // Show new
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+            document.getElementById(`step-${step}`).classList.add('animate-fade-in');
+
+            // Update Badges
+            document.querySelectorAll('.step-badge').forEach(b => b.classList.remove('active'));
+            for (let i = 1; i <= step; i++) {
+                document.getElementById(`badge-${i}`).classList.add('active');
             }
 
-            void mainImage(out vec4 fragColor,in vec2 fragCoord){
-                vec2 uv=fragCoord/uResolution.xy*2.-1.;
-                uv.y*=-1.;
-                uv+=uWarp*vec2(sin(uv.y*6.283+uTime*0.5),cos(uv.x*6.283+uTime*0.5))*0.05;
-                fragColor=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copySignature() {
+            const range = document.createRange();
+            range.selectNode(document.getElementById('signature-preview'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+
+            const feedback = document.getElementById('sig-copy-feedback');
+            feedback.style.opacity = '1';
+            setTimeout(() => feedback.style.opacity = '0', 2000);
+        }
+
+        // --- FINAL SUBMISSION & MODAL ---
+        function finishOnboarding(e) {
+            e.preventDefault();
+            // Show Integrity Modal instead of submitting immediately
+            document.getElementById('integrity-modal').classList.add('open');
+        }
+
+        // Modal Logic
+        const integrityCheck = document.getElementById('integrity-check');
+        const integrityBtn = document.getElementById('integrity-btn');
+
+        integrityCheck.addEventListener('change', function () {
+            if (this.checked) {
+                integrityBtn.disabled = false;
+                integrityBtn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                integrityBtn.classList.add('bg-primary-gradient'); // Uses default btn-primary style
+            } else {
+                integrityBtn.disabled = true;
+                integrityBtn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
             }
+        });
 
-            void main(){
-                vec4 col;mainImage(col,gl_FragCoord.xy);
-                col.rgb=hueShiftRGB(col.rgb,uHueShift);
-                float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
-                col.rgb*=1.-(scanline_val*scanline_val)*uScan;
-                col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-                gl_FragColor=vec4(clamp(col.rgb,0.0,1.0),1.0);
-            }
-            `;
+        async function closeIntegrityModal() {
+            // Close modal
+            document.getElementById('integrity-modal').classList.remove('open');
 
-            // 3. DARK VEIL CLASS
-            class DarkVeil {
-                constructor(containerId, options = {}) {
-                    this.container = document.getElementById(containerId);
-                    if (!this.container) {
-                        console.error("DarkVeil: Container not found");
-                        return;
-                    }
+            // Proceed to Success
+            document.getElementById('success-name').innerText = state.nome;
+            goToStep('success');
+        }
 
-                    // Apply styles to container to ensure full coverage
-                    this.container.style.width = '100%';
-                    this.container.style.height = '100%';
-                    this.container.style.overflow = 'hidden';
-                    this.container.style.position = 'relative';
+        /* --- LIGHTBOX LOGIC --- */
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
 
-                    this.options = {
-                        hueShift: 242,
-                        noiseIntensity: 0,
-                        scanlineIntensity: 0,
-                        speed: 3,
-                        scanlineFrequency: 0,
-                        warpAmount: 0,
-                        resolutionScale: 1,
-                        ...options
-                    };
+            img.src = src;
+            modal.classList.remove('hidden');
 
-                    // Debug Log
-                    console.log("DarkVeil: Constructor finished. Options:", this.options);
+            // Small delay for animation
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                img.classList.remove('scale-95');
+                img.classList.add('scale-100');
+            }, 10);
+        }
 
-                    this.init();
-                }
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
 
-                init() {
-                    try {
-                        this.renderer = new Renderer({
-                            dpr: Math.min(window.devicePixelRatio, 2),
-                            alpha: false, // Ensure opaque background unless transparent desired
-                            webgl: 1 // Force WebGL 1 for shader compatibility (gl_FragColor)
-                        });
-                        console.log("DarkVeil: Renderer instance created", this.renderer);
+            modal.classList.add('opacity-0');
+            img.classList.remove('scale-100');
+            img.classList.add('scale-95');
 
-                        this.gl = this.renderer.gl;
-                        this.container.appendChild(this.gl.canvas);
-                        this.gl.canvas.style.display = 'block';
-                        this.gl.canvas.style.width = '100%';
-                        this.gl.canvas.style.height = '100%';
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                img.src = '';
+            }, 300);
+        }
 
-                        const geometry = new Triangle(this.gl);
-
-                        this.program = new Program(this.gl, {
-                            vertex,
-                            fragment,
-                            uniforms: {
-                                uTime: { value: 0 },
-                                uResolution: { value: new Vec2() },
-                                uHueShift: { value: this.options.hueShift },
-                                uNoise: { value: this.options.noiseIntensity },
-                                uScan: { value: this.options.scanlineIntensity },
-                                uScanFreq: { value: this.options.scanlineFrequency },
-                                uWarp: { value: this.options.warpAmount }
-                            }
-                        });
-                        console.log("DarkVeil: Program initialized");
-
-                        this.mesh = new Mesh(this.gl, { geometry, program: this.program });
-
-                        this.resize = this.resize.bind(this);
-                        window.addEventListener('resize', this.resize);
-                        this.resize();
-
-                        this.start = performance.now();
-                        this.frameId = requestAnimationFrame(this.loop.bind(this));
-
-
-
-                    } catch (error) {
-                        console.error("DarkVeil Init Error:", error);
-
-                    }
-                }
-
-                resize() {
-                    const w = this.container.clientWidth;
-                    const h = this.container.clientHeight;
-                    this.renderer.setSize(w * this.options.resolutionScale, h * this.options.resolutionScale);
-                    // Correctly update uniform
-                    this.program.uniforms.uResolution.value.set(w, h); // Use w, h directly for standard scaling behavior in shader
-                }
-
-                loop() {
-                    if (!this.program) return;
-
-                    const now = performance.now();
-                    this.program.uniforms.uTime.value = ((now - this.start) / 1000) * this.options.speed;
-                    this.renderer.render({ scene: this.mesh });
-                    this.frameId = requestAnimationFrame(this.loop.bind(this));
-                }
-
-                destroy() {
-                    window.removeEventListener('resize', this.resize);
-                    cancelAnimationFrame(this.frameId);
-                    if (this.gl && this.gl.canvas && this.gl.canvas.parentNode) {
-                        this.gl.canvas.parentNode.removeChild(this.gl.canvas);
-                    }
-                }
-            }
-
-            // 4. INIT
-            window.addEventListener('load', () => {
-
-                const container = document.getElementById('dark-veil-container');
-                if (container) {
-                    try {
-                        new DarkVeil('dark-veil-container', {
-                            hueShift: 242,
-                            noiseIntensity: 0,
-                            scanlineIntensity: 0,
-                            speed: 3,
-                            scanlineFrequency: 0,
-                            warpAmount: 0
-                        });
-
-                    } catch (e) {
-                        console.error(e);
-
-                    }
-                } else {
-                    console.error("DarkVeil container not found!");
-                }
-            });
-        </script>
+    </script>
 </body>
 
+<!-- Deployment Timestamp: 2026-02-17T13:15:00 -->
+
 </html>
-```
