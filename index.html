@@ -533,17 +533,25 @@
             };
 
             try {
-                // WEBHOOK_URL is defined in scope because config.js is loaded
-                // Fallback if not globally visible (safety check)
-                const url = (typeof ALSOLVED_CONFIG !== 'undefined') ?
-                    ALSOLVED_CONFIG.webhooks.onboarding_submit :
-                    'https://hook.eu1.make.com/poxojxs1mtjy60l396jddgiq24xj3vjo';
+                // FORCE HARDCODED URL
+                const url = 'https://hook.eu1.make.com/poxojxs1mtjy60l396jddgiq24xj3vjo';
 
-                await fetch(url, {
+                console.log("Sending data to:", url);
+                console.log("Payload:", payload);
+
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+
+                if (response.ok) {
+                    console.log("Webhook Success");
+                } else {
+                    console.error("Webhook Failed", response.status);
+                    alert("Errore invio dati: " + response.status);
+                    return; // Stop if failed
+                }
 
                 // Success
                 document.getElementById('integrity-modal').classList.remove('open');
