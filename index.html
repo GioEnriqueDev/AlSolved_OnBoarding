@@ -159,7 +159,7 @@
 
                     <div class="flex gap-4 pt-2">
                         <button onclick="goToStep(1)" class="btn-secondary w-1/3">Indietro</button>
-                        <button id="btn-step-2" onclick="goToStep(3)" disabled
+                        <button id="btn-step-2" onclick="confirmStep(3)" disabled
                             class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">
                             Ho Fatto Tutto <i class="fa-solid fa-lock ml-2"></i>
                         </button>
@@ -280,7 +280,7 @@
 
                     <div class="flex gap-4 pt-4">
                         <button onclick="goToStep(2)" class="btn-secondary w-1/3">Indietro</button>
-                        <button id="btn-step-3" onclick="goToStep(4)" disabled
+                        <button id="btn-step-3" onclick="confirmStep(4)" disabled
                             class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">Fatto, Avanti <i
                                 class="fa-solid fa-lock ml-2"></i></button>
                     </div>
@@ -445,10 +445,11 @@
             per chiudere</p>
     </div>
 
-    <!-- WHATSAPP SUPPORT -->
-    <a href="https://wa.me/393491119147" target="_blank" class="whatsapp-float hover:rotate-12"
-        title="Supporto WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
+    <!-- WHATSAPP SUPPORT (EXPANDED) -->
+    <a href="https://wa.me/393491119147" target="_blank"
+        class="fixed bottom-6 right-6 bg-[#25D366] text-white px-6 py-3 rounded-full font-bold shadow-xl hover:bg-[#128C7E] transition-all z-50 flex items-center gap-3 animate-bounce-slow">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span>CLICCA QUI PER AIUTO</span>
     </a>
 
     <!-- SCRIPTS -->
@@ -544,6 +545,41 @@
             }
         }
 
+        // --- NEW: TERROR CONFIRMATION ---
+        function confirmStep(stepTarget) {
+            let title = "Sei VERAMENTE sicuro?";
+            let text = "Se procedi senza aver fatto questo passaggio, il sistema si bloccherà.";
+            let icon = "warning";
+            let confirmBtnText = "Sì, ho fatto tutto";
+
+            if (stepTarget === 3) {
+                // Coming from Step 2 (Account Creation)
+                text = "Se non hai creato l'account con ESATTAMENTE questi dati, non potrai lavorare. Sei responsabile di questo errore.";
+                confirmBtnText = "Sì, Account Creato";
+            } else if (stepTarget === 4) {
+                // Coming from Step 3 (Forwarding)
+                title = "ATTENZIONE: RISCHIO BLOCCO PAGAMENTI";
+                text = "Se l'inoltro non è attivo, i contratti non arriveranno e NON VERRAI PAGATO. Hai visto il codice di conferma?";
+                icon = "error";
+                confirmBtnText = "Sì, Inoltro Attivo";
+            }
+
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+                showCancelButton: true,
+                confirmButtonColor: '#d33', // Red for scary
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: confirmBtnText,
+                cancelButtonText: "No, ricontrollo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    goToStep(stepTarget);
+                }
+            });
+        }
+
         function goToStep(step) {
             // Validate Step 1
             if (currentStep === 1 && step === 2) {
@@ -624,8 +660,22 @@
         // --- FINAL SUBMISSION & MODAL ---
         function finishOnboarding(e) {
             e.preventDefault();
-            // Show Integrity Modal instead of submitting immediately
-            document.getElementById('integrity-modal').classList.add('open');
+
+            // TERROR: Final check
+            Swal.fire({
+                title: "ULTIMO AVVERTIMENTO",
+                text: "Se la firma è sbagliata o l'email di prova non è partita, dovrai rifare tutto da zero. Confermi?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: "Sì, Confermo Tutto",
+                cancelButtonText: "Ricontrollo un attimo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show Integrity Modal instead of submitting immediately
+                    document.getElementById('integrity-modal').classList.add('open');
+                }
+            });
         }
 
         // Modal Logic
