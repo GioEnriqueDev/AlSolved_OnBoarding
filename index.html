@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding v2 - ALSOLVED</title>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-indigo-50/50 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Navbar Minimal -->
+    <nav class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
+        <div class="flex items-center gap-2 group">
+            <div class="relative w-8 h-8">
+                <i class="fa-solid fa-comment text-2xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                <i class="fa-regular fa-comment text-2xl text-slate-800 absolute bottom-0 right-0"></i>
+            </div>
+            <span class="text-xl font-black text-slate-900 tracking-tighter">
+                AL<span class="text-pink-500">SOLVED</span>
+            </span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-4xl card-premium overflow-hidden bg-white relative z-20">
+
+        <!-- Progress Header -->
+        <div class="bg-white border-b border-slate-100 p-6 md:p-8 flex items-center justify-between sticky top-0 z-10">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900" id="step-title">Benvenuto</h1>
+                <p class="text-slate-500 text-sm" id="step-desc">Configura il tuo ambiente di lavoro.</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="step-badge active" id="badge-1">1</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-2">2</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-3">3</div>
+                <div class="w-8 h-0.5 bg-slate-200"></div>
+                <div class="step-badge" id="badge-4">4</div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-8 md:p-12 min-h-[500px] flex flex-col justify-center relative">
+
+            <!-- STEP 1: Dati Anagrafici -->
+            <div id="step-1" class="step-container animate-fade-in">
+                <div class="max-w-md mx-auto space-y-6">
+                    <div class="text-center mb-8">
+                        <div
+                            class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-500 text-3xl">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">Chi sei?</h2>
+                        <p class="text-slate-500">Inserisci i tuoi dati per generare la firma.</p>
+                    </div>
+
+                    <form onsubmit="goToStep(2); return false;" class="space-y-4">
+                        <div>
+                            <label class="label-google">Nome</label>
+                            <input type="text" id="input-nome" required class="input-google" placeholder="Mario"
+                                onblur="formatName(this)" oninput="updateSuggestedEmail()">
+                        </div>
+                        <div>
+                            <label class="label-google">Cognome</label>
+                            <input type="text" id="input-cognome" required class="input-google" placeholder="Rossi"
+                                onblur="formatName(this)" oninput="updateSuggestedEmail()">
+                        </div>
+                        <div>
+                            <label class="label-google">Cellulare</label>
+                            <input type="tel" id="input-telefono" required class="input-google"
+                                placeholder="333 1234567" onblur="formatPhone(this)">
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="submit" class="btn-primary w-full flex items-center justify-center gap-2">
+                                Inizia Configurazione <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- STEP 2: Creazione Account -->
+            <div id="step-2" class="step-container hidden">
+                <div class="max-w-2xl mx-auto space-y-6 text-center">
+
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 text-left rounded-r-lg shadow-sm">
+                        <p class="text-amber-900 font-bold text-sm uppercase tracking-wide mb-1">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Passo Fondamentale
+                        </p>
+                        <p class="text-amber-800 text-sm">
+                            Non inventare nulla. Usa <strong>ESATTAMENTE</strong> questi dati.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-6 rounded-2xl border-2 border-slate-200 hover:border-pink-500 transition-all cursor-pointer group shadow-sm hover:shadow-md"
+                            onclick="copyToClipboard('display-email'); checkStep2(); document.getElementById('chk-email').checked = true; checkStep2();">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">1. La Tua Nuova
+                                Email</p>
+                            <p id="display-email" class="font-mono text-lg font-bold text-slate-900 break-all mb-2">...
+                            </p>
+                            <span
+                                class="text-pink-600 text-xs font-bold bg-pink-50 px-2 py-1 rounded-full group-hover:bg-pink-100 transition-colors">
+                                <i class="fa-regular fa-copy mr-1"></i> Clicca per Copiare
+                            </span>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-2 border-slate-200 hover:border-pink-500 transition-all cursor-pointer group shadow-sm hover:shadow-md"
+                            onclick="copyToClipboard('display-password'); checkStep2(); document.getElementById('chk-pwd').checked = true; checkStep2();">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">2. La Password
+                            </p>
+                            <p id="display-password" class="font-mono text-lg font-bold text-slate-900 mb-2">
+                                Alsolved2026!</p>
+                            <span
+                                class="text-pink-600 text-xs font-bold bg-pink-50 px-2 py-1 rounded-full group-hover:bg-pink-100 transition-colors">
+                                <i class="fa-regular fa-copy mr-1"></i> Clicca per Copiare
+                            </span>
+                        </div>
+                    </div>
+
+                    <a href="https://accounts.google.com/signup" target="_blank"
+                        onclick="document.getElementById('chk-acct').checked = true; checkStep2();"
+                        class="block w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <i class="fa-brands fa-google mr-2"></i> 3. CLICCA QUI PER CREARE L'ACCOUNT
+                    </a>
+
+                    <!-- Verification Checklist -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-left">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-3">Conferma Obbligatoria</p>
+                        <div class="space-y-3">
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-email" onchange="checkStep2()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho copiato la nuova email</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-pwd" onchange="checkStep2()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho copiato la password</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-acct" onchange="checkStep2()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho creato l'account su Google</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-2">
+                        <button onclick="goToStep(1)" class="btn-secondary w-1/3">Indietro</button>
+                        <button id="btn-step-2" onclick="confirmStep(3)" disabled
+                            class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">
+                            Ho Fatto Tutto <i class="fa-solid fa-lock ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Configurazione Inoltro -->
+            <div id="step-3" class="step-container hidden">
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold mb-2">Ora Collega le Email 🔗</h2>
+                        <p class="text-slate-500">Senza questo passaggio <span class="text-red-500 font-bold">non verrai
+                                pagato</span> perché non vedremo i contratti.</p>
+                    </div>
+
+                    <div
+                        class="bg-indigo-50 p-6 rounded-xl border-2 border-indigo-100 text-center relative overflow-hidden shadow-sm">
+                        <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1">Indirizzo da
+                            Inserire</p>
+                        <code id="forward-email"
+                            class="text-2xl font-mono font-bold text-indigo-700 block my-2">alsolveditalia@gmail.com</code>
+                        <button onclick="copyToClipboard('forward-email')"
+                            class="mt-2 bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:shadow-md transition-all border border-indigo-100">
+                            <i class="fa-regular fa-copy mr-2"></i> Copia Indirizzo
+                        </button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Step 3.1 -->
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-500 border border-slate-200">
+                                1</div>
+                            <div class="flex-1 space-y-2">
+                                <p class="font-bold text-slate-900">Apri le Impostazioni</p>
+                                <p class="text-sm text-slate-500">Su Gmail, in alto a destra, clicca l'ingranaggio <i
+                                        class="fa-solid fa-gear"></i> e poi <strong>"Visualizza tutte le
+                                        impostazioni"</strong>.</p>
+                                <div class="relative group cursor-zoom-in w-full md:w-64"
+                                    onclick="openLightbox('assets/tutorial/guide_1.png?v=3')">
+                                    <img src="assets/tutorial/guide_1.png?v=3"
+                                        class="w-full rounded-lg border border-slate-200 shadow-sm" alt="Guida 1">
+                                    <div
+                                        class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3.2 -->
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-500 border border-slate-200">
+                                2</div>
+                            <div class="flex-1 space-y-2">
+                                <p class="font-bold text-slate-900">Vai su "Inoltro e POP/IMAP"</p>
+                                <p class="text-sm text-slate-500">Clicca sulla scheda in alto.</p>
+                                <div class="relative group cursor-zoom-in w-full md:w-64"
+                                    onclick="openLightbox('assets/tutorial/guide_2.png?v=2')">
+                                    <img src="assets/tutorial/guide_2.png?v=2"
+                                        class="w-full rounded-lg border border-slate-200 shadow-sm" alt="Guida 2">
+                                    <div
+                                        class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3.3 -->
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-500 border border-slate-200">
+                                3</div>
+                            <div class="flex-1 space-y-2">
+                                <p class="font-bold text-slate-900">Aggiungi l'indirizzo</p>
+                                <p class="text-sm text-slate-500">Clicca <strong>"Aggiungi un indirizzo di
+                                        inoltro"</strong> e incolla: <code
+                                        class="bg-slate-100 px-1 rounded text-purple-600">alsolveditalia@gmail.com</code>
+                                </p>
+                                <div class="relative group cursor-zoom-in w-full md:w-64"
+                                    onclick="openLightbox('assets/tutorial/guide_3.png?v=2')">
+                                    <img src="assets/tutorial/guide_3.png?v=2"
+                                        class="w-full rounded-lg border border-slate-200 shadow-sm" alt="Guida 3">
+                                    <div
+                                        class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Verification Checklist -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-left mt-8">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-3">Controllo Finale</p>
+                        <div class="space-y-3">
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-fwd-1" onchange="checkStep3()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho aggiunto l'indirizzo di inoltro</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-fwd-2" onchange="checkStep3()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho confermato (se Google ha chiesto un
+                                    codice)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="goToStep(2)" class="btn-secondary w-1/3">Indietro</button>
+                        <button id="btn-step-3" onclick="confirmStep(4)" disabled
+                            class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">Fatto, Avanti <i
+                                class="fa-solid fa-lock ml-2"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Firma e Invio -->
+            <div id="step-4" class="step-container hidden">
+                <div class="max-w-2xl mx-auto space-y-8">
+
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold">Ultimo passaggio: La Firma ✍️</h2>
+                    </div>
+
+                    <!-- Signature Preview -->
+                    <div class="bg-white p-6 rounded-xl border-2 border-dashed border-slate-300">
+                        <p class="text-xs text-center text-slate-400 mb-4 uppercase tracking-wider font-bold">Anteprima
+                            (Copia-Incolla su Gmail)</p>
+                        <div id="signature-preview" class="p-4 bg-white shadow-sm rounded border border-slate-100">
+                            <!-- JS Injected -->
+                        </div>
+                        <button
+                            onclick="copySignature(); document.getElementById('chk-sig').checked = true; checkStep4();"
+                            class="w-full mt-4 py-3 bg-slate-900 text-white rounded-lg font-bold hover:bg-black transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-copy"></i> COPIA LA FIRMA
+                        </button>
+                        <p id="sig-copy-feedback"
+                            class="text-center text-green-500 text-xs font-bold mt-2 opacity-0 transition-opacity">
+                            Copiata negli appunti!</p>
+                    </div>
+
+                    <!-- How to Paste Guide -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-sm space-y-3">
+                        <p class="font-bold text-slate-900 uppercase text-xs mb-4">Come Inserirla (Guida Illustrata)</p>
+
+                        <div class="space-y-6">
+                            <!-- Guide 1 -->
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-600">
+                                    1</div>
+                                <div class="flex-1 space-y-2">
+                                    <p class="font-bold text-slate-900">Vai su Impostazioni Firma</p>
+                                    <p class="text-xs text-slate-500">Impostazioni -> Tutte le impostazioni -> Scorri
+                                        fino a "Firma".</p>
+                                    <div class="relative group cursor-zoom-in w-full md:w-64"
+                                        onclick="openLightbox('assets/tutorial/sig_guide_1.png')">
+                                        <img src="assets/tutorial/sig_guide_1.png"
+                                            class="w-full rounded-lg border border-slate-200 shadow-sm"
+                                            alt="Guida Firma 1">
+                                        <div
+                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                            <i
+                                                class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guide 2 -->
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-600">
+                                    2</div>
+                                <div class="flex-1 space-y-2">
+                                    <p class="font-bold text-slate-900">Crea e Incolla</p>
+                                    <p class="text-xs text-slate-500">Clicca "Crea nuova", dai un nome e incolla nel box
+                                        a destra.</p>
+                                    <div class="relative group cursor-zoom-in w-full md:w-64"
+                                        onclick="openLightbox('assets/tutorial/sig_guide_2.png')">
+                                        <img src="assets/tutorial/sig_guide_2.png"
+                                            class="w-full rounded-lg border border-slate-200 shadow-sm"
+                                            alt="Guida Firma 2">
+                                        <div
+                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                            <i
+                                                class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guide 3 -->
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-600">
+                                    3</div>
+                                <div class="flex-1 space-y-2">
+                                    <p class="font-bold text-slate-900">Seleziona e Salva</p>
+                                    <p class="text-xs text-slate-500"><span
+                                            class="text-red-600 font-bold">IMPORTANTE:</span> Imposta la firma per
+                                        "Nuove email" e "Risposte", poi SALVA in fondo.</p>
+                                    <div class="relative group cursor-zoom-in w-full md:w-64"
+                                        onclick="openLightbox('assets/tutorial/sig_guide_3.png')">
+                                        <img src="assets/tutorial/sig_guide_3.png"
+                                            class="w-full rounded-lg border border-slate-200 shadow-sm"
+                                            alt="Guida Firma 3">
+                                        <div
+                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                                            <i
+                                                class="fa-solid fa-magnifying-glass text-white opacity-0 group-hover:opacity-100"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-800 text-sm mb-1">Azione Finale Richiesta</h4>
+                        <p class="text-green-700 text-sm mb-3">Invia un'email di prova al responsabile.</p>
+                        <div class="flex gap-3">
+                            <a href="#" id="mailto-btn" target="_blank"
+                                onclick="document.getElementById('chk-mail').checked = true; checkStep4();"
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition-colors">
+                                <i class="fa-regular fa-paper-plane mr-2"></i> Invia Email Prova
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Verification Checklist -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 text-left mt-4">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-3">Conferma Finale</p>
+                        <div class="space-y-3">
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-sig" onchange="checkStep4()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho incollato e SALVATO la firma su Gmail</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
+                                <input type="checkbox" id="chk-mail" onchange="checkStep4()"
+                                    class="w-6 h-6 rounded border-slate-300 text-pink-600 focus:ring-pink-500">
+                                <span class="text-slate-700 font-medium">Ho inviato l'email di prova</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="goToStep(3)" class="btn-secondary w-1/3">Indietro</button>
+                        <button id="btn-step-4" onclick="finishOnboarding(event)" disabled
+                            class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">CONFERMA E ATTIVA <i
+                                class="fa-solid fa-rocket ml-2"></i></button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SUCCESS STATE -->
+            <div id="step-success" class="step-container hidden text-center py-10">
+                <div
+                    class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl animate-scale-in">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tutto Pronto! 🚀</h2>
+                <p class="text-slate-500 max-w-md mx-auto mb-8">
+                    Ottimo lavoro, <span id="success-name" class="font-bold text-slate-800"></span>.
+                    <br>Controlla la tua nuova email per l'invito al CRM HubSpot e il tuo Report Vendite.
+                </p>
+
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 inline-block text-left w-full max-w-sm">
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-4">Prossimi passi</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm text-slate-700">
+                            <i class="fa-brands fa-hubspot text-orange-500"></i> Accetta invito HubSpot
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-slate-700">
+                            <i class="fa-regular fa-file-excel text-green-600"></i> Apri Report Vendite
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-slate-50 p-4 text-center border-t border-slate-100">
+            <p class="text-xs text-slate-400 font-semibold tracking-widest uppercase">Alsolved Internal System v2.2
+            </p>
+        </div>
+    </main>
+
+    <!-- INTEGRITY MODAL -->
+    <div id="integrity-modal" class="modal-backdrop">
+        <div class="modal-content text-center">
+            <div
+                class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-skull-crossbones"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">ATTENZIONE: REGOLA SACRA</h3>
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Il "Report Vendite" è un file di sistema.<br><br>
+                <span class="font-bold text-red-600 block mb-2">⛔ NON MODIFICARE IL NOME DEL FILE.</span>
+                <span class="font-bold text-red-600 block">⛔ NON MODIFICARE LE COLONNE.</span>
+                <br>
+                Se lo fai, il sistema si blocca e non verrai pagato correttamente.
+            </p>
+
+            <label
+                class="flex items-center justify-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors mb-6">
+                <input type="checkbox" id="integrity-check"
+                    class="w-5 h-5 text-red-600 rounded border-slate-300 focus:ring-red-500">
+                <span class="text-sm font-bold text-slate-700">Ho capito, non toccherò la struttura del file.</span>
+            </label>
+
+            <button onclick="closeIntegrityModal()" id="integrity-btn" disabled
+                class="btn-primary w-full bg-slate-300 cursor-not-allowed opacity-50">
+                Accetto e Proseguo
+            </button>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 bg-black/90 z-[60] hidden flex items-center justify-center opacity-0 transition-opacity duration-300"
+        onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white text-4xl hover:text-pink-500 transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightbox-img" src=""
+            class="max-w-[95%] max-h-[95vh] rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+        <p class="absolute bottom-4 left-0 w-full text-center text-white/70 text-sm pointer-events-none">Clicca ovunque
+            per chiudere</p>
+    </div>
+
+    <!-- WHATSAPP SUPPORT (EXPANDED) -->
+    <a href="https://wa.me/393491119147" target="_blank"
+        class="fixed bottom-6 right-6 bg-[#25D366] text-white px-6 py-3 rounded-full font-bold shadow-xl hover:bg-[#128C7E] transition-all z-50 flex items-center gap-3 animate-bounce-slow">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span>CLICCA QUI PER AIUTO</span>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        // CONFIG & STATE
+        // const WEBHOOK_URL = ALSOLVED_CONFIG.webhooks.onboarding_submit; // Ensure config.js is loaded
+
+        /* --- UTILS --- */
+        function copyToClipboard(elementId) {
+            const el = document.getElementById(elementId);
+            const text = el.tagName === 'INPUT' ? el.value : el.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Toast or visual feedback could go here
+                el.classList.add('text-green-500');
+                setTimeout(() => el.classList.remove('text-green-500'), 500);
+            });
+        }
+
+        function formatName(input) {
+            let val = input.value.trim().toLowerCase();
+            val = val.replace(/\b\w/g, c => c.toUpperCase());
+            input.value = val;
+        }
+
+        function formatPhone(input) {
+            // Simple formatter
+            let val = input.value.replace(/\D/g, '');
+            if (val.length > 0 && val[0] !== '3') val = '3' + val; // Assume mobile start
+            input.value = val.match(/.{1,3}/g)?.join(' ') || val;
+        }
+
+        /* --- LOGIC --- */
+        let currentStep = 1;
+        const state = { nome: '', cognome: '', phone: '', email: '' };
+
+        // VALIDATION FUNCTIONS
+        function checkStep2() {
+            const chkEmail = document.getElementById('chk-email').checked;
+            const chkPwd = document.getElementById('chk-pwd').checked;
+            const chkAcct = document.getElementById('chk-acct').checked;
+            const btn = document.getElementById('btn-step-2');
+
+            if (chkEmail && chkPwd && chkAcct) {
+                btn.disabled = false;
+                btn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.add('bg-primary-gradient');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.remove('bg-primary-gradient');
+            }
+        }
+
+        function checkStep3() {
+            const chk1 = document.getElementById('chk-fwd-1').checked;
+            const chk2 = document.getElementById('chk-fwd-2').checked;
+            const btn = document.getElementById('btn-step-3');
+
+            if (chk1 && chk2) {
+                btn.disabled = false;
+                btn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.add('bg-primary-gradient');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.remove('bg-primary-gradient');
+            }
+        }
+
+        function checkStep4() {
+            const chkSig = document.getElementById('chk-sig').checked;
+            const chkMail = document.getElementById('chk-mail').checked;
+            const btn = document.getElementById('btn-step-4');
+
+            if (chkSig && chkMail) {
+                btn.disabled = false;
+                btn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.add('bg-primary-gradient');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                btn.classList.remove('bg-primary-gradient');
+            }
+        }
+
+        function updateSuggestedEmail() {
+            const nome = document.getElementById('input-nome').value.trim().toLowerCase().replace(/\s/g, '');
+            const cognome = document.getElementById('input-cognome').value.trim().toLowerCase().replace(/\s/g, '');
+            if (nome && cognome) {
+                const email = `${nome}${cognome}.alsolved@gmail.com`;
+                document.getElementById('display-email').innerText = email;
+                state.email = email; // Update state
+            }
+        }
+
+        // --- NEW: PROFESSIONAL CONFIRMATION ---
+        function confirmStep(stepTarget) {
+            let title = "Sei sicuro?";
+            let text = "Procedere senza completare questo passaggio potrebbe causare errori.";
+            let icon = "warning";
+            let confirmBtnText = "Sì, ho fatto tutto";
+
+            if (stepTarget === 3) {
+                // Coming from Step 2 (Account Creation)
+                text = "Se non hai creato l'account con i dati corretti, non potrai accedere al CRM e ricevere i lead.";
+                confirmBtnText = "Sì, Account Creato";
+            } else if (stepTarget === 4) {
+                // Coming from Step 3 (Forwarding)
+                title = "ATTENZIONE: FLUSSO LAVORO";
+                text = "Se l'inoltro non è attivo, non riceverai i lead e il tuo lavoro si bloccherà.";
+                icon = "warning"; // Less aggressive than 'error'
+                confirmBtnText = "Sì, Inoltro Attivo";
+            }
+
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+                showCancelButton: true,
+                confirmButtonColor: '#0f172a', // Slate-900 (Professional)
+                cancelButtonColor: '#64748b', // Slate-500
+                confirmButtonText: confirmBtnText,
+                cancelButtonText: "No, ricontrollo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    goToStep(stepTarget);
+                }
+            });
+        }
+
+        function goToStep(step) {
+            // Validate Step 1
+            if (currentStep === 1 && step === 2) {
+                const n = document.getElementById('input-nome').value;
+                const c = document.getElementById('input-cognome').value;
+                const p = document.getElementById('input-telefono').value;
+                if (!n || !c || !p) return alert("Compila tutti i campi!");
+
+                state.nome = n;
+                state.cognome = c;
+                state.phone = p;
+
+                // Create readable phone format 
+                // formatted mostly as requested example: 351/5371725 but using input
+                // let's try to keep it clean, maybe just spaces or the user's input
+                const displayPhone = state.phone;
+
+                const signature = `
+                    <table style="font-family: 'Arial', sans-serif; color: #1e293b; font-size: 14px; line-height: 1.4; border: 0; border-collapse: collapse;">
+                        <tr>
+                            <td style="border-left: 4px solid #d946ef; padding-left: 16px;">
+                                <div style="font-size: 20px; font-weight: 700; color: #d946ef; margin-bottom: 2px;">
+                                    ${state.nome} ${state.cognome}
+                                </div>
+                                <div style="color: #64748b; font-size: 14px; margin-bottom: 8px; font-weight: 500;">
+                                    Consulente Commerciale
+                                </div>
+                                <div style="color: #1e293b; font-size: 13px; margin-bottom: 4px; font-weight: 600;">
+                                    <span style="color: #d946ef;">📱</span> ${displayPhone}
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <a href="https://www.alsolved.com" style="color: #000; text-decoration: none; font-weight: 600;">www.alsolved.com</a>
+                                </div>
+                                <a href="https://www.alsolved.com" target="_blank" style="text-decoration: none; display: block; margin-bottom: 12px;">
+                                    <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4zOj-jHigSb1X1H0eaJV_pOir67j_ZG_b1MYvZuQ-RIdWtKFG6tN6XJpntMLlZGM4RFQvqMVkWRgau8" 
+                                    alt="AlSolved Logo" width="160" style="width: 160px; height: auto; display: block; border: 0;">
+                                </a>
+                                <div style="font-size: 10px; color: #94a3b8; line-height: 1.3; max-width: 400px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+                                    <p style="margin: 0 0 8px 0;">This email may be confidential or privileged. If you received this communication by mistake, please don't forward it to anyone else, please erase all copies and attachments, and please let me know that it went to the wrong person. Thanks.</p>
+                                    <p style="margin: 0;">Questo messaggio può contenere informazioni riservate o confidenziali. Se questa comunicazione è stata ricevuta per errore, si prega di non inoltrarla a terzi, di eliminare tutte le copie e gli allegati e di confermare che è stata recapitata alla persona errata. Grazie.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+                document.getElementById('signature-preview').innerHTML = signature;
+
+                // Mailto Link
+                const subject = `Verifica Firma: ${state.nome} ${state.cognome}`;
+                document.getElementById('mailto-btn').href = `mailto:info@alsolved.com?subject=${encodeURIComponent(subject)}&body=Ecco la mia email di prova.`;
+            }
+
+            // Hide current
+            document.getElementById(`step-${currentStep}`).classList.add('hidden');
+            document.getElementById(`step-${currentStep}`).classList.remove('animate-fade-in');
+
+            // Show new
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+            document.getElementById(`step-${step}`).classList.add('animate-fade-in');
+
+            // Update Badges
+            document.querySelectorAll('.step-badge').forEach(b => b.classList.remove('active'));
+            for (let i = 1; i <= step; i++) {
+                document.getElementById(`badge-${i}`).classList.add('active');
+            }
+
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copySignature() {
+            const range = document.createRange();
+            range.selectNode(document.getElementById('signature-preview'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+
+            const feedback = document.getElementById('sig-copy-feedback');
+            feedback.style.opacity = '1';
+            setTimeout(() => feedback.style.opacity = '0', 2000);
+        }
+
+        // --- FINAL SUBMISSION & MODAL ---
+        function finishOnboarding(e) {
+            e.preventDefault();
+
+            // TERROR: Final check
+            Swal.fire({
+                title: "ULTIMO AVVERTIMENTO",
+                text: "Se la firma è sbagliata o l'email di prova non è partita, dovrai rifare tutto da zero. Confermi?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: "Sì, Confermo Tutto",
+                cancelButtonText: "Ricontrollo un attimo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show Integrity Modal instead of submitting immediately
+                    document.getElementById('integrity-modal').classList.add('open');
+                }
+            });
+        }
+
+        // Modal Logic
+        const integrityCheck = document.getElementById('integrity-check');
+        const integrityBtn = document.getElementById('integrity-btn');
+
+        integrityCheck.addEventListener('change', function () {
+            if (this.checked) {
+                integrityBtn.disabled = false;
+                integrityBtn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+                integrityBtn.classList.add('bg-primary-gradient'); // Uses default btn-primary style
+            } else {
+                integrityBtn.disabled = true;
+                integrityBtn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-50');
+            }
+        });
+
+        async function closeIntegrityModal() {
+            const btn = document.getElementById('integrity-btn');
+            const originalText = btn.innerHTML;
+
+            // UX: Loading State
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Attivazione...';
+
+            // Prepare Payload
+            // Note: state.phone is used internally, but we send 'telefono' to match webhook expectations
+            const payload = {
+                nome: state.nome,
+                cognome: state.cognome,
+                telefono: state.phone,
+                email_effettiva: state.email
+            };
+
+            try {
+                // FORCE HARDCODED URL
+                const url = 'https://hook.eu1.make.com/poxojxs1mtjy60l396jddgiq24xj3vjo';
+
+                console.log("Sending data to:", url);
+                console.log("Payload:", payload);
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    console.log("Webhook Success");
+                } else {
+                    console.error("Webhook Failed", response.status);
+                    alert("Errore invio dati: " + response.status);
+                    return; // Stop if failed
+                }
+
+                // Success
+                document.getElementById('integrity-modal').classList.remove('open');
+                document.getElementById('success-name').innerText = state.nome;
+                goToStep('success');
+
+            } catch (error) {
+                console.error("Webhook Error:", error);
+                alert("Errore di connessione. Riprova o contatta l'assistenza.");
+
+                // Reset Button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        /* --- LIGHTBOX LOGIC --- */
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+
+            img.src = src;
+            modal.classList.remove('hidden');
+
+            // Small delay for animation
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                img.classList.remove('scale-95');
+                img.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+
+            modal.classList.add('opacity-0');
+            img.classList.remove('scale-100');
+            img.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                img.src = '';
+            }, 300);
+        }
+
+    </script>
+</body>
+
+<!-- Deployment Timestamp: 2026-02-17T13:15:00 -->
+
+</html>

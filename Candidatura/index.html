@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALSOLVED - Start Recruiting</title>
+    <script src="../js/config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* EXTRA CANDIDATURA SPECIFIC FIXES */
+        body {
+            background-color: #f8fafc;
+        }
+
+        /* PREMIUM DROPDOWN */
+        select.input-google {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+</head>
+
+<body class="bg-indigo-50/50 font-sans text-slate-900 antialiased min-h-screen selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- NAVBAR MINIMAL -->
+    <nav class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
+        <div class="flex items-center gap-2 group">
+            <div class="relative w-8 h-8">
+                <i class="fa-solid fa-comment text-2xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                <i class="fa-regular fa-comment text-2xl text-slate-800 absolute bottom-0 right-0"></i>
+            </div>
+            <span class="text-xl font-black text-slate-900 tracking-tighter">
+                AL<span class="text-pink-500">SOLVED</span>
+            </span>
+        </div>
+    </nav>
+
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm">
+        <div class="card-premium p-8 md:p-12 max-w-sm w-full text-center relative overflow-hidden group">
+            <!-- Animated Lock Icon -->
+            <div class="mb-6 relative">
+                <div class="w-24 h-24 mx-auto bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-sm animate-pulse">
+                    <i class="fa-solid fa-lock text-5xl text-red-500 drop-shadow-sm"></i>
+                </div>
+            </div>
+            <h2 class="text-xl font-bold mb-2">Accesso Candidati</h2>
+            <p class="text-slate-500 text-sm mb-6">Inserisci il codice di accesso fornito dal tuo manager.</p>
+
+            <form onsubmit="checkPassword(event)">
+                <input type="password" id="password-input"
+                    class="input-google text-center tracking-widest mb-4"
+                    placeholder="••••••••" required autofocus>
+                <button type="submit"
+                    class="btn-primary w-full text-lg">
+                    ACCEDI ORA
+                </button>
+            </form>
+            <p id="login-error" class="text-red-500 text-xs mt-4 hidden"><i class="fa-solid fa-circle-exclamation"></i>
+                Password Errata,</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content"
+        class="min-h-screen flex items-center justify-center p-4 py-16 relative z-20 hidden transition-all duration-1000 blur-sm">
+        <div class="card-premium w-full max-w-2xl p-8 md:p-12 relative overflow-hidden animate-fade-in">
+
+            <div class="text-center mb-8">
+                <div class="flex items-center justify-center gap-3 mb-6 animate-float group cursor-pointer">
+                    <div class="relative w-10 h-10 transition-transform duration-300 group-hover:rotate-6">
+                        <i class="fa-solid fa-comment text-3xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                        <i class="fa-regular fa-comment text-3xl text-slate-800 absolute bottom-0 right-0"></i>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-bold text-slate-900">
+                    Benvenuto in Squadra</h1>
+                <p class="text-slate-500 mt-2">Compila il modulo con i tuoi dati per ricevere il contratto.</p>
+                <p class="text-slate-400 text-sm mt-2">L'onboarding inizierà subito dopo la firma.</p>
+            </div>
+
+            <form onsubmit="submitForm(event)" class="space-y-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-1">
+                        <label class="label-google">Nome</label>
+                        <input type="text" id="nome" required
+                            class="input-google"
+                            placeholder="Es. Mario" onblur="formatName(this)">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="label-google">Cognome</label>
+                        <input type="text" id="cognome" required
+                            class="input-google"
+                            placeholder="Es. Rossi" onblur="formatName(this)">
+                    </div>
+                </div>
+
+                <!-- Dati Anagrafici -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-12 lg:col-span-5 space-y-1">
+                        <label class="label-google">Data di Nascita</label>
+                        <input type="date" id="data_nascita" required
+                            class="input-google text-slate-500">
+                    </div>
+                    <div class="md:col-span-6 lg:col-span-3 space-y-1">
+                        <label class="label-google">Sesso</label>
+                        <select id="sesso" required class="input-google text-slate-500">
+                            <option value="">-</option>
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-6 lg:col-span-4 space-y-1">
+                        <label class="label-google">Luogo di Nascita</label>
+                        <input type="text" id="luogo_nascita" required
+                            class="input-google" placeholder="Roma"
+                            onblur="formatName(this)">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-google">Codice Fiscale</label>
+                    <div class="relative">
+                        <input type="text" id="codice_fiscale" required
+                            class="input-google pr-24 uppercase tracking-widest font-mono"
+                            placeholder="RSSMRA80A01H501U" oninput="this.value = this.value.toUpperCase()">
+                        <button type="button" onclick="calculateTaxCode()"
+                            class="absolute right-2 top-2 bottom-2 px-3 bg-slate-100 hover:bg-pink-500 hover:text-white text-slate-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1 group">
+                            <i class="fa-solid fa-bolt group-hover:animate-pulse"></i> CALCOLA
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-google">Email Personale</label>
+                    <div class="relative">
+                        <i
+                            class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="email" id="email" required
+                            class="input-google pl-11"
+                            placeholder="mario.privato@email.com">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label-google">Telefono (Per Avviso)</label>
+                    <div class="relative">
+                        <i
+                            class="fa-solid fa-whatsapp absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500 text-lg"></i>
+                        <input type="tel" id="phone" required
+                            class="input-google pl-11"
+                            placeholder="3XX XXXXXXX">
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1 ml-1">Riceverai una notifica WhatsApp automatica.</p>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                    class="btn-primary w-full flex items-center justify-center gap-3 text-xl py-5 mt-8 group">
+                    <span>INVIA INVITO</span>
+                    <i class="fa-solid fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+
+            <div id="successMessage"
+                class="hidden mt-6 bg-green-50 border border-green-100 rounded-xl p-4 flex items-start gap-4 animate-fade-in">
+                <div class="bg-green-500 rounded-full p-1 mt-0.5">
+                    <i class="fa-solid fa-check text-white text-xs"></i>
+                </div>
+                <div>
+                    <h4 class="text-green-700 font-bold text-sm">Candidatura Inviata!</h4>
+                    <p class="text-slate-600 text-xs mt-1">Riceverai a breve una email con il contratto da firmare
+                        tramite YouSign. Controlla anche nello SPAM!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Password encoded in config
+        const TARGET = ALSOLVED_CONFIG.security.admin_pwd_hash;
+
+        async function checkPassword(e) {
+            e.preventDefault();
+            const input = document.getElementById('password-input').value.trim();
+            const errorMsg = document.getElementById('login-error');
+
+            const decoded = atob(TARGET);
+
+            if (input === decoded) {
+                const overlay = document.getElementById('login-overlay');
+                const main = document.getElementById('main-content');
+
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => overlay.remove(), 500);
+
+                main.classList.remove('hidden');
+                setTimeout(() => main.classList.remove('blur-sm'), 100);
+            } else {
+                errorMsg.classList.remove('hidden');
+                document.getElementById('password-input').classList.add('border-red-500');
+            }
+        }
+
+        function formatName(input) {
+            let val = input.value.trim().toLowerCase();
+            val = val.replace(/\b\w/g, c => c.toUpperCase());
+            input.value = val;
+        }
+
+        async function submitForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Invio in corso...';
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            try {
+                const response = await fetch(ALSOLVED_CONFIG.webhooks.admin_invite, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nome: nome,
+                        cognome: cognome,
+                        data_nascita: document.getElementById('data_nascita').value,
+                        sesso: document.getElementById('sesso').value,
+                        luogo_nascita: document.getElementById('luogo_nascita').value,
+                        codice_fiscale: document.getElementById('codice_fiscale').value,
+                        email_personale: email,
+                        telefono: phone
+                    })
+                });
+
+                if (response.ok) {
+                    const cleanPhone = phone.replace(/\s+/g, '').replace(/-/g, '');
+                    const message = `Ciao! Ti ho appena inviato la mail di attivazione per Alsolved. IMPORTANTE: Se non la vedi, controlla la cartella SPAM o Promozioni, è finita sicuramente lì!`;
+                    
+                    Swal.fire({
+                        title: 'Tutto pronto! 🚀',
+                        text: 'Dati inviati correttamente. Controlla la tua casella di posta (anche lo spam) tra un paio di minuti: riceverai il contratto YouSign.',
+                        icon: 'success',
+                        confirmButtonText: 'Ho capito',
+                        confirmButtonColor: '#d946ef',
+                        background: '#ffffff',
+                        color: '#0f172a'
+                    }).then(() => {
+                        resetForm();
+                    });
+
+                } else {
+                    throw new Error('Errore nell\'invio');
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Errore di Sistema',
+                    text: "Attualmente il sistema non è in funzione, contatta l'amministrazione!",
+                    icon: 'error',
+                    background: '#ffffff',
+                    color: '#0f172a',
+                    confirmButtonColor: '#ef4444'
+                });
+                console.error(error);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        }
+
+        function resetForm() {
+            document.querySelector('form').reset();
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        function calculateTaxCode() {
+            const nome = document.getElementById('nome').value.trim();
+            const cognome = document.getElementById('cognome').value.trim();
+            const data = document.getElementById('data_nascita').value;
+            const sesso = document.getElementById('sesso').value;
+            const luogoRaw = document.getElementById('luogo_nascita').value.trim();
+
+            if (!nome || !cognome || !data || !sesso || !luogoRaw) {
+                Swal.fire({
+                    title: 'Dati mancanti',
+                    text: 'Compila Nome, Cognome, Data, Sesso e Luogo per calcolare.',
+                    icon: 'warning',
+                    background: '#ffffff',
+                    color: '#0f172a',
+                    confirmButtonColor: '#d946ef'
+                });
+                return;
+            }
+
+            const luogoUpper = luogoRaw.toUpperCase();
+            const codiceComune = COMUNI[luogoUpper];
+
+            if (!codiceComune) {
+                Swal.fire({
+                    title: 'Comune non trovato',
+                    text: `Non trovo "${luogoRaw}" nel database. Controlla se è scritto correttamente.`,
+                    icon: 'error',
+                    background: '#ffffff',
+                    color: '#0f172a',
+                    confirmButtonColor: '#d946ef'
+                });
+                return;
+            }
+
+            const cf = CF_CALC.compute(nome, cognome, data, sesso, codiceComune);
+
+            if (cf) {
+                const input = document.getElementById('codice_fiscale');
+                input.value = cf;
+                input.classList.add('border-green-500', 'text-green-600');
+                setTimeout(() => input.classList.remove('border-green-500', 'text-green-600'), 2000);
+            }
+        }
+    </script>
+    <script src="../js/comuni.js"></script>
+    <script src="../js/cf_calculator.js"></script>
+</body>
+
+</html>
+script>
+</body>
+
+</html>
