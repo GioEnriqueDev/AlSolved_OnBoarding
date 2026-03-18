@@ -17,7 +17,7 @@ Il sistema si compone di due portali distinti:
 
 ### 1. Flusso Amministratore (`/Admin`)
 Il punto di innesco del processo.
-*   **Login**: Accesso protetto da password (hash client-side) in un'interfaccia "Glassmorphism" premium.
+*   **Direct Access**: Accesso libero al portale Admin in un'interfaccia "Glassmorphism" premium.
 *   **Input Dati**: L'admin inserisce Nome, Cognome e Email Personale del candidato.
 *   **Automazione**: Al click su "Invia Invito", il sistema:
     1.  Pulisce e formatta i dati (Auto-Capitalizzazione delle iniziali).

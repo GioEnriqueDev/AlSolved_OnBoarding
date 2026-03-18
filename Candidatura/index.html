@@ -27,7 +27,8 @@
     </style>
 </head>
 
-<body class="bg-indigo-50/50 font-sans text-slate-900 antialiased min-h-screen selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
+<body
+    class="bg-indigo-50/50 font-sans text-slate-900 antialiased min-h-screen selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
 
     <!-- NAVBAR MINIMAL -->
     <nav class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
@@ -42,41 +43,17 @@
         </div>
     </nav>
 
-    <!-- LOGIN OVERLAY -->
-    <div id="login-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm">
-        <div class="card-premium p-8 md:p-12 max-w-sm w-full text-center relative overflow-hidden group">
-            <!-- Animated Lock Icon -->
-            <div class="mb-6 relative">
-                <div class="w-24 h-24 mx-auto bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-sm animate-pulse">
-                    <i class="fa-solid fa-lock text-5xl text-red-500 drop-shadow-sm"></i>
-                </div>
-            </div>
-            <h2 class="text-xl font-bold mb-2">Accesso Candidati</h2>
-            <p class="text-slate-500 text-sm mb-6">Inserisci il codice di accesso fornito dal tuo manager.</p>
-
-            <form onsubmit="checkPassword(event)">
-                <input type="password" id="password-input"
-                    class="input-google text-center tracking-widest mb-4"
-                    placeholder="••••••••" required autofocus>
-                <button type="submit"
-                    class="btn-primary w-full text-lg">
-                    ACCEDI ORA
-                </button>
-            </form>
-            <p id="login-error" class="text-red-500 text-xs mt-4 hidden"><i class="fa-solid fa-circle-exclamation"></i>
-                Password Errata,</p>
-        </div>
-    </div>
 
     <!-- MAIN CONTENT -->
     <div id="main-content"
-        class="min-h-screen flex items-center justify-center p-4 py-16 relative z-20 hidden transition-all duration-1000 blur-sm">
+        class="min-h-screen flex items-center justify-center p-4 py-16 relative z-20 transition-all duration-1000">
         <div class="card-premium w-full max-w-2xl p-8 md:p-12 relative overflow-hidden animate-fade-in">
 
             <div class="text-center mb-8">
                 <div class="flex items-center justify-center gap-3 mb-6 animate-float group cursor-pointer">
                     <div class="relative w-10 h-10 transition-transform duration-300 group-hover:rotate-6">
-                        <i class="fa-solid fa-comment text-3xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                        <i
+                            class="fa-solid fa-comment text-3xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
                         <i class="fa-regular fa-comment text-3xl text-slate-800 absolute bottom-0 right-0"></i>
                     </div>
                 </div>
@@ -91,15 +68,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-1">
                         <label class="label-google">Nome</label>
-                        <input type="text" id="nome" required
-                            class="input-google"
-                            placeholder="Es. Mario" onblur="formatName(this)">
+                        <input type="text" id="nome" required class="input-google" placeholder="Es. Mario"
+                            onblur="formatName(this)">
                     </div>
                     <div class="space-y-1">
                         <label class="label-google">Cognome</label>
-                        <input type="text" id="cognome" required
-                            class="input-google"
-                            placeholder="Es. Rossi" onblur="formatName(this)">
+                        <input type="text" id="cognome" required class="input-google" placeholder="Es. Rossi"
+                            onblur="formatName(this)">
                     </div>
                 </div>
 
@@ -107,8 +82,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
                     <div class="md:col-span-12 lg:col-span-5 space-y-1">
                         <label class="label-google">Data di Nascita</label>
-                        <input type="date" id="data_nascita" required
-                            class="input-google text-slate-500">
+                        <input type="date" id="data_nascita" required class="input-google text-slate-500">
                     </div>
                     <div class="md:col-span-6 lg:col-span-3 space-y-1">
                         <label class="label-google">Sesso</label>
@@ -120,8 +94,7 @@
                     </div>
                     <div class="md:col-span-6 lg:col-span-4 space-y-1">
                         <label class="label-google">Luogo di Nascita</label>
-                        <input type="text" id="luogo_nascita" required
-                            class="input-google" placeholder="Roma"
+                        <input type="text" id="luogo_nascita" required class="input-google" placeholder="Roma"
                             onblur="formatName(this)">
                     </div>
                 </div>
@@ -144,8 +117,7 @@
                     <div class="relative">
                         <i
                             class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                        <input type="email" id="email" required
-                            class="input-google pl-11"
+                        <input type="email" id="email" required class="input-google pl-11"
                             placeholder="mario.privato@email.com">
                     </div>
                 </div>
@@ -155,9 +127,7 @@
                     <div class="relative">
                         <i
                             class="fa-solid fa-whatsapp absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500 text-lg"></i>
-                        <input type="tel" id="phone" required
-                            class="input-google pl-11"
-                            placeholder="3XX XXXXXXX">
+                        <input type="tel" id="phone" required class="input-google pl-11" placeholder="3XX XXXXXXX">
                     </div>
                     <p class="text-xs text-slate-400 mt-1 ml-1">Riceverai una notifica WhatsApp automatica.</p>
                 </div>
@@ -176,8 +146,8 @@
                 </div>
                 <div>
                     <h4 class="text-green-700 font-bold text-sm">Candidatura Inviata!</h4>
-                    <p class="text-slate-600 text-xs mt-1">Riceverai a breve una email con il contratto da firmare
-                        tramite YouSign. Controlla anche nello SPAM!</p>
+                    <p class="text-slate-600 text-xs mt-1">Riceverai a breve una email con il contratto da firmare,
+                        Controlla anche nello SPAM!</p>
                 </div>
             </div>
 
@@ -185,31 +155,6 @@
     </div>
 
     <script>
-        // Password encoded in config
-        const TARGET = ALSOLVED_CONFIG.security.admin_pwd_hash;
-
-        async function checkPassword(e) {
-            e.preventDefault();
-            const input = document.getElementById('password-input').value.trim();
-            const errorMsg = document.getElementById('login-error');
-
-            const decoded = atob(TARGET);
-
-            if (input === decoded) {
-                const overlay = document.getElementById('login-overlay');
-                const main = document.getElementById('main-content');
-
-                overlay.style.opacity = '0';
-                overlay.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => overlay.remove(), 500);
-
-                main.classList.remove('hidden');
-                setTimeout(() => main.classList.remove('blur-sm'), 100);
-            } else {
-                errorMsg.classList.remove('hidden');
-                document.getElementById('password-input').classList.add('border-red-500');
-            }
-        }
 
         function formatName(input) {
             let val = input.value.trim().toLowerCase();
@@ -250,21 +195,7 @@
                 });
 
                 if (response.ok) {
-                    const cleanPhone = phone.replace(/\s+/g, '').replace(/-/g, '');
-                    const message = `Ciao! Ti ho appena inviato la mail di attivazione per Alsolved. IMPORTANTE: Se non la vedi, controlla la cartella SPAM o Promozioni, è finita sicuramente lì!`;
-                    
-                    Swal.fire({
-                        title: 'Tutto pronto! 🚀',
-                        text: 'Dati inviati correttamente. Controlla la tua casella di posta (anche lo spam) tra un paio di minuti: riceverai il contratto YouSign.',
-                        icon: 'success',
-                        confirmButtonText: 'Ho capito',
-                        confirmButtonColor: '#d946ef',
-                        background: '#ffffff',
-                        color: '#0f172a'
-                    }).then(() => {
-                        resetForm();
-                    });
-
+                    window.location.href = 'success.html';
                 } else {
                     throw new Error('Errore nell\'invio');
                 }
@@ -339,7 +270,6 @@
 </body>
 
 </html>
-script>
 </body>
 
 </html>
