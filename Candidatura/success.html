@@ -4,117 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richiesta Inviata - ALSOLVED</title>
+    <title>Benvenuto - ALSOLVED</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        body {
+            font-family: 'Inclusive Sans', sans-serif;
+            background: radial-gradient(circle at top right, #fdf4ff 0%, #f8fafc 100%);
+        }
+
         .glass-premium {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 40px 60px -15px rgba(0, 0, 0, 0.05);
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
 
         .animate-float {
             animation: float 4s ease-in-out infinite;
         }
 
-        .check-draw {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            animation: draw 0.8s ease-out forwards 0.5s;
+        .gradient-text {
+            background: linear-gradient(135deg, #1e293b 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        @keyframes draw {
-            to { stroke-dashoffset: 0; }
-        }
-
-        .bg-indigo-soft {
-            background: radial-gradient(circle at top right, #eef2ff 0%, #f8fafc 100%);
+        .progress-bar-fill {
+            height: 4px;
+            background: #ec4899;
+            width: 0%;
+            transition: width 10s linear;
         }
     </style>
 </head>
 
-<body class="bg-indigo-soft min-h-screen flex items-center justify-center p-6 selection:bg-rose-500 selection:text-white">
+<body class="min-h-screen flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden selection:bg-pink-500 selection:text-white">
 
-    <!-- NAVBAR MINIMAL -->
-    <nav class="absolute top-0 left-0 w-full p-8 flex justify-center z-10">
-        <div class="flex items-center gap-2">
-            <div class="relative w-8 h-8">
-                <i class="fa-solid fa-comment text-2xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
-                <i class="fa-regular fa-comment text-2xl text-slate-800 absolute bottom-0 right-0"></i>
-            </div>
-            <span class="text-xl font-black text-slate-900 tracking-tighter">
-                AL<span class="text-pink-500">SOLVED</span>
-            </span>
-        </div>
-    </nav>
+    <!-- Progress Timer (Transit Indicator) -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-100">
+        <div id="redirect-progress" class="progress-bar-fill"></div>
+    </div>
 
-    <main class="w-full max-w-xl text-center">
-        <div class="glass-premium rounded-[2.5rem] p-8 md:p-14 relative overflow-hidden">
+    <main class="w-full max-w-3xl relative animate-fade-in text-center">
+        
+        <div class="glass-premium rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
             
-            <!-- Icon Section -->
+            <!-- Welcome Icon -->
             <div class="mb-10 relative inline-block">
-                <div class="w-32 h-32 bg-pink-50 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate-float">
-                    <svg class="w-16 h-16 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path class="check-draw" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <div class="absolute -top-2 -right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border border-pink-100">
-                    <i class="fa-solid fa-bolt text-pink-500 text-sm"></i>
+                <div class="w-24 h-24 bg-pink-50 rounded-3xl flex items-center justify-center border-2 border-white shadow-xl animate-float rotate-3">
+                    <i class="fa-solid fa-hand-sparkles text-4xl text-pink-500"></i>
                 </div>
             </div>
 
-            <!-- Text Content -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                Candidatura Ricevuta! 🚀
+            <!-- Main Message -->
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+                Benvenuto in <span class="gradient-text">Squadra!</span> ✨
             </h1>
             
-            <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
-                <p>
-                    Ottimo lavoro! Abbiamo preso in carico i tuoi dati. <br class="hidden md:block">
-                    Adesso inizia la parte più importante.
+            <p class="text-slate-500 text-lg md:text-xl leading-relaxed mb-10 max-w-xl mx-auto">
+                Siamo entusiasti di averti con noi! <br>
+                Ti ruberemo solo <span class="font-bold text-slate-900 underline decoration-pink-500/30">5 minuti</span> per la configurazione del tuo <span class="font-bold text-slate-900">CRM</span> e del tuo <span class="font-bold text-slate-900">Drive</span>.
+            </p>
+
+            <div class="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100 mb-10">
+                <p class="text-indigo-900 font-bold mb-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-indigo-500"></i>
+                    IMPORTANTE
                 </p>
-
-                <div class="bg-indigo-50 border-2 border-indigo-100/50 rounded-2xl p-6 text-indigo-900 font-medium shadow-sm">
-                    <p class="mb-2 uppercase tracking-widest text-[0.6rem] font-black text-indigo-400">Prossimo Step</p>
-                    <p class="text-xl font-bold">📧 Controlla la tua email!</p>
-                    <p class="text-sm mt-2 text-indigo-700/80">
-                        Ti abbiamo inviato il contratto da firmare digitalmente tramite **YouSign**. 
-                    </p>
-                </div>
-
-                <div class="text-sm border-t border-slate-100 pt-6">
-                    <p class="mb-4 text-slate-400 italic">
-                        <i class="fa-solid fa-circle-info mr-2"></i> 
-                        Non vedi l'email? Controlla anche nella cartella <strong>Spam</strong> o <strong>Promozioni</strong>.
-                    </p>
-                </div>
+                <p class="text-indigo-700 text-sm">
+                    Segui precisamente le istruzioni che troverai nella prossima pagina. La corretta configurazione è fondamentale per il tuo lavoro.
+                </p>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="mt-10 flex flex-col gap-3">
-                <a href="https://www.alsolved.com" 
-                   class="w-full py-4 bg-slate-900 hover:bg-black text-white rounded-2xl font-bold transition-all transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2">
-                   Visita il Sito Ufficiale <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-50"></i>
+            <!-- Action Button -->
+            <div class="flex flex-col items-center gap-4">
+                <a href="index.html" 
+                   class="w-full py-5 bg-slate-900 hover:bg-black text-white rounded-2xl font-black text-xl transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 flex items-center justify-center gap-3 group">
+                   Inizia Configurazione <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
                 </a>
-                <a href="https://wa.me/393491119147" 
-                   class="text-slate-400 hover:text-pink-500 font-bold py-2 transition-colors text-sm">
-                   Hai bisogno di supporto? <span class="underline">Contatta l'amministrazione</span>
-                </a>
+                
+                <p class="text-slate-400 text-xs font-medium">
+                    Verrai reindirizzato automaticamente tra <span id="countdown">10</span> secondi...
+                </p>
             </div>
+
         </div>
 
-        <!-- Footer -->
-        <p class="mt-8 text-slate-400 text-[0.7rem] uppercase tracking-[0.3em] font-bold select-none">
-            Alsolved Recruitment System &bull; 2026
+        <!-- System Tag -->
+        <p class="mt-8 text-slate-400 text-[0.65rem] uppercase tracking-[0.4em] font-black select-none opacity-50">
+            Alsolved Recruitment System &bull; Intelligent Transit
         </p>
+
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('redirect-progress');
+            const countdownEl = document.getElementById('countdown');
+            let timeLeft = 10;
+
+            // Start progress bar animation
+            setTimeout(() => {
+                bar.style.width = '100%';
+            }, 100);
+
+            // Countdown text update
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'index.html';
+                }
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 
 </body>
 </html>
