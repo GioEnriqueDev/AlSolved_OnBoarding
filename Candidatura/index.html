@@ -11,18 +11,114 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* EXTRA CANDIDATURA SPECIFIC FIXES */
         body {
             background-color: #f8fafc;
         }
 
-        /* PREMIUM DROPDOWN */
         select.input-google {
             appearance: none;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
             background-position: right 0.5rem center;
             background-repeat: no-repeat;
             background-size: 1.5em 1.5em;
+        }
+
+        /* Stepper */
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: #e2e8f0;
+            margin: 0 4px;
+            border-radius: 2px;
+            min-width: 16px;
+        }
+        .step-line.done {
+            background: linear-gradient(90deg, #d946ef, #ec4899);
+        }
+        .step-node {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #94a3b8;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .step-node.active {
+            background: linear-gradient(135deg, #d946ef, #ec4899);
+            border-color: #d946ef;
+            color: white;
+            box-shadow: 0 0 0 4px rgba(217,70,239,0.15);
+        }
+        .step-node.done {
+            background: #d946ef;
+            border-color: #d946ef;
+            color: white;
+        }
+        .step-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 6px;
+            color: #94a3b8;
+        }
+        .step-label.active { color: #d946ef; }
+        .step-label.done { color: #d946ef; }
+
+        /* Info card */
+        .info-step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .info-step-card:hover {
+            border-color: #cbd5e1;
+            background: white;
+        }
+        .info-step-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        /* Field hint */
+        .field-hint {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            margin-top: 4px;
+            margin-left: 2px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .field-hint i { font-size: 0.65rem; }
+
+        /* Alert banner */
+        .alert-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #fbbf24;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
     </style>
 </head>
@@ -41,120 +137,254 @@
                 AL<span class="text-pink-500">SOLVED</span>
             </span>
         </div>
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest hidden sm:block">Nuova Collaborazione</span>
     </nav>
 
 
     <!-- MAIN CONTENT -->
     <div id="main-content"
-        class="min-h-screen flex items-center justify-center p-4 py-16 relative z-20 transition-all duration-1000">
-        <div class="card-premium w-full max-w-2xl p-8 md:p-12 relative overflow-hidden animate-fade-in">
+        class="min-h-screen flex items-center justify-center p-4 py-24 relative z-20 transition-all duration-1000">
+        <div class="w-full max-w-2xl space-y-4 animate-fade-in">
 
-            <div class="text-center mb-8">
-                <div class="flex items-center justify-center gap-3 mb-6 animate-float group cursor-pointer">
-                    <div class="relative w-10 h-10 transition-transform duration-300 group-hover:rotate-6">
-                        <i
-                            class="fa-solid fa-comment text-3xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
-                        <i class="fa-regular fa-comment text-3xl text-slate-800 absolute bottom-0 right-0"></i>
+            <!-- ===== STEPPER ===== -->
+            <div class="card-premium px-6 py-5">
+                <div class="flex items-start justify-between">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center">
+                        <div class="step-node active">1</div>
+                        <span class="step-label active">Dati</span>
+                    </div>
+                    <div class="step-line mt-[18px]"></div>
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center">
+                        <div class="step-node">2</div>
+                        <span class="step-label">Contratto</span>
+                    </div>
+                    <div class="step-line mt-[18px]"></div>
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center">
+                        <div class="step-node">3</div>
+                        <span class="step-label">Account</span>
+                    </div>
+                    <div class="step-line mt-[18px]"></div>
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center">
+                        <div class="step-node">4</div>
+                        <span class="step-label">Inizia!</span>
                     </div>
                 </div>
-                <h1 class="text-3xl font-bold text-slate-900">
-                    Benvenuto in Squadra</h1>
-                <p class="text-slate-500 mt-2">Compila il modulo con i tuoi dati per ricevere il contratto.</p>
-                <p class="text-slate-400 text-sm mt-2">L'onboarding inizierà subito dopo la firma.</p>
+                <p class="text-xs text-slate-400 text-center mt-3">Stai completando il <strong class="text-slate-600">Passo 1 di 4</strong> — Inserimento Dati Personali</p>
             </div>
 
-            <form onsubmit="submitForm(event)" class="space-y-6">
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-1">
-                        <label class="label-google">Nome</label>
-                        <input type="text" id="nome" required class="input-google" placeholder="Es. Mario"
-                            onblur="formatName(this)">
+            <!-- ===== COME FUNZIONA ===== -->
+            <div class="card-premium p-6">
+                <button onclick="toggleGuide()" class="w-full flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center">
+                            <i class="fa-solid fa-map text-indigo-500"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-slate-900 text-sm">Come funziona il processo?</p>
+                            <p class="text-xs text-slate-400">Leggi prima di compilare — 30 secondi</p>
+                        </div>
                     </div>
-                    <div class="space-y-1">
-                        <label class="label-google">Cognome</label>
-                        <input type="text" id="cognome" required class="input-google" placeholder="Es. Rossi"
-                            onblur="formatName(this)">
-                    </div>
-                </div>
-
-                <!-- Dati Anagrafici -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-12 lg:col-span-5 space-y-1">
-                        <label class="label-google">Data di Nascita</label>
-                        <input type="date" id="data_nascita" required class="input-google text-slate-500">
-                    </div>
-                    <div class="md:col-span-6 lg:col-span-3 space-y-1">
-                        <label class="label-google">Sesso</label>
-                        <select id="sesso" required class="input-google text-slate-500">
-                            <option value="">-</option>
-                            <option value="M">M</option>
-                            <option value="F">F</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-6 lg:col-span-4 space-y-1">
-                        <label class="label-google">Luogo di Nascita</label>
-                        <input type="text" id="luogo_nascita" required class="input-google" placeholder="Roma"
-                            onblur="formatName(this)">
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="label-google">Codice Fiscale</label>
-                    <div class="relative">
-                        <input type="text" id="codice_fiscale" required
-                            class="input-google pr-24 uppercase tracking-widest font-mono"
-                            placeholder="RSSMRA80A01H501U" oninput="this.value = this.value.toUpperCase()">
-                        <button type="button" onclick="calculateTaxCode()"
-                            class="absolute right-2 top-2 bottom-2 px-3 bg-slate-100 hover:bg-pink-500 hover:text-white text-slate-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1 group">
-                            <i class="fa-solid fa-bolt group-hover:animate-pulse"></i> CALCOLA
-                        </button>
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="label-google">Email Personale</label>
-                    <div class="relative">
-                        <i
-                            class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                        <input type="email" id="email" required class="input-google pl-11"
-                            placeholder="mario.privato@email.com">
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="label-google">Telefono (Per Avviso)</label>
-                    <div class="relative">
-                        <i
-                            class="fa-solid fa-whatsapp absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500 text-lg"></i>
-                        <input type="tel" id="phone" required class="input-google pl-11" placeholder="3XX XXXXXXX">
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1 ml-1">Riceverai una notifica WhatsApp automatica.</p>
-                </div>
-
-                <button type="submit" id="submitBtn"
-                    class="btn-primary w-full flex items-center justify-center gap-3 text-xl py-5 mt-8 group">
-                    <span>INVIA INVITO</span>
-                    <i class="fa-solid fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                    <i id="guide-chevron" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                 </button>
-            </form>
 
-            <div id="successMessage"
-                class="hidden mt-6 bg-green-50 border border-green-100 rounded-xl p-4 flex items-start gap-4 animate-fade-in">
-                <div class="bg-green-500 rounded-full p-1 mt-0.5">
-                    <i class="fa-solid fa-check text-white text-xs"></i>
-                </div>
-                <div>
-                    <h4 class="text-green-700 font-bold text-sm">Candidatura Inviata!</h4>
-                    <p class="text-slate-600 text-xs mt-1">Riceverai a breve una email con il contratto da firmare,
-                        Controlla anche nello SPAM!</p>
+                <div id="guide-content" class="hidden mt-5 space-y-3">
+                    <!-- Step 1 -->
+                    <div class="info-step-card">
+                        <div class="info-step-icon bg-pink-50">
+                            <i class="fa-solid fa-pen-to-square text-pink-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">1 — Compila questo modulo</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Inserisci i tuoi dati anagrafici reali. Servono per generare il contratto di collaborazione.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="info-step-card">
+                        <div class="info-step-icon bg-amber-50">
+                            <i class="fa-solid fa-file-signature text-amber-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">2 — Ricevi e firma il contratto</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Riceverai una email con il contratto da firmare digitalmente. <strong>Controlla anche lo SPAM.</strong> Firma entro 24h per procedere.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="info-step-card">
+                        <div class="info-step-icon bg-indigo-50">
+                            <i class="fa-solid fa-key text-indigo-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">3 — Crea il tuo account di lavoro</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Dopo la firma verrai guidato nella configurazione del tuo <strong>CRM</strong> e <strong>Google Drive</strong> aziendale. Servono circa 5 minuti.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="info-step-card">
+                        <div class="info-step-icon bg-green-50">
+                            <i class="fa-solid fa-rocket text-green-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">4 — Inizia a lavorare!</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Account attivo, strumenti pronti. Inizia subito la tua attività come consulente AlSolved.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert-banner mt-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5 flex-shrink-0"></i>
+                        <p class="text-xs text-amber-800"><strong>Importante:</strong> usa la tua <strong>email personale</strong> (non aziendale), quella che controlli quotidianamente. Tutte le comunicazioni importanti arriveranno lì.</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- ===== FORM ===== -->
+            <div class="card-premium p-8 md:p-10">
+
+                <div class="text-center mb-8">
+                    <div class="flex items-center justify-center gap-3 mb-4 animate-float group cursor-pointer">
+                        <div class="relative w-10 h-10 transition-transform duration-300 group-hover:rotate-6">
+                            <i class="fa-solid fa-comment text-3xl text-pink-500 absolute top-0 left-0 transform -scale-x-100"></i>
+                            <i class="fa-regular fa-comment text-3xl text-slate-800 absolute bottom-0 right-0"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-2xl font-bold text-slate-900">Inserisci i tuoi dati personali</h1>
+                    <p class="text-slate-500 mt-1.5 text-sm">I dati saranno usati per generare il tuo contratto. Compila con cura.</p>
+                </div>
+
+                <form onsubmit="submitForm(event)" class="space-y-6">
+
+                    <!-- Nome / Cognome -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="space-y-1">
+                            <label class="label-google">Nome</label>
+                            <input type="text" id="nome" required class="input-google" placeholder="Es. Mario"
+                                onblur="formatName(this)">
+                            <p class="field-hint"><i class="fa-solid fa-circle-info"></i> Come sul documento d'identità</p>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="label-google">Cognome</label>
+                            <input type="text" id="cognome" required class="input-google" placeholder="Es. Rossi"
+                                onblur="formatName(this)">
+                        </div>
+                    </div>
+
+                    <!-- Dati Anagrafici -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                        <div class="md:col-span-12 lg:col-span-5 space-y-1">
+                            <label class="label-google">Data di Nascita</label>
+                            <input type="date" id="data_nascita" required class="input-google text-slate-500">
+                        </div>
+                        <div class="md:col-span-6 lg:col-span-3 space-y-1">
+                            <label class="label-google">Sesso</label>
+                            <select id="sesso" required class="input-google text-slate-500">
+                                <option value="">-</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-6 lg:col-span-4 space-y-1">
+                            <label class="label-google">Luogo di Nascita</label>
+                            <input type="text" id="luogo_nascita" required class="input-google" placeholder="Roma"
+                                onblur="formatName(this)">
+                            <p class="field-hint"><i class="fa-solid fa-circle-info"></i> Comune italiano o stato estero</p>
+                        </div>
+                    </div>
+
+                    <!-- Codice Fiscale -->
+                    <div class="space-y-1">
+                        <label class="label-google">Codice Fiscale</label>
+                        <div class="relative">
+                            <input type="text" id="codice_fiscale" required
+                                class="input-google pr-28 uppercase tracking-widest font-mono"
+                                placeholder="RSSMRA80A01H501U" oninput="this.value = this.value.toUpperCase()">
+                            <button type="button" onclick="calculateTaxCode()"
+                                class="absolute right-2 top-2 bottom-2 px-3 bg-slate-100 hover:bg-pink-500 hover:text-white text-slate-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1 group">
+                                <i class="fa-solid fa-bolt group-hover:animate-pulse"></i> CALCOLA
+                            </button>
+                        </div>
+                        <p class="field-hint">
+                            <i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i>
+                            Non lo ricordi? Compila nome, cognome, data, sesso e luogo, poi premi <strong class="text-pink-500">CALCOLA</strong>
+                        </p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="space-y-1">
+                        <label class="label-google">Email Personale</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                            <input type="email" id="email" required class="input-google pl-11"
+                                placeholder="mario.privato@gmail.com">
+                        </div>
+                        <p class="field-hint">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                            Usa la tua email personale — il <strong class="text-slate-600">contratto arriverà qui</strong>. Controlla anche lo SPAM dopo l'invio.
+                        </p>
+                    </div>
+
+                    <!-- Telefono -->
+                    <div class="space-y-1">
+                        <label class="label-google">Telefono (WhatsApp)</label>
+                        <div class="relative">
+                            <i class="fa-brands fa-whatsapp absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500 text-lg"></i>
+                            <input type="tel" id="phone" required class="input-google pl-11" placeholder="3XX XXXXXXX">
+                        </div>
+                        <p class="field-hint">
+                            <i class="fa-brands fa-whatsapp text-green-400"></i>
+                            Riceverai notifiche automatiche su WhatsApp. Assicurati che il numero sia attivo.
+                        </p>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="border-t border-slate-100 pt-4">
+                        <div class="bg-slate-50 rounded-xl p-4 flex items-start gap-3 mb-5">
+                            <i class="fa-solid fa-shield-halved text-indigo-400 mt-0.5"></i>
+                            <p class="text-xs text-slate-500">I tuoi dati sono usati <strong class="text-slate-700">esclusivamente</strong> per generare il contratto di collaborazione e configurare il tuo account. Non vengono condivisi con terze parti.</p>
+                        </div>
+
+                        <button type="submit" id="submitBtn"
+                            class="btn-primary w-full flex items-center justify-center gap-3 text-lg py-5 group">
+                            <i class="fa-solid fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                            <span>INVIA E RICEVI IL CONTRATTO</span>
+                        </button>
+                        <p class="text-center text-xs text-slate-400 mt-3">
+                            Dopo l'invio riceverai l'email con il contratto da firmare &rarr; poi potrai creare il tuo account
+                        </p>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Footer note -->
+            <p class="text-center text-[0.65rem] text-slate-400 uppercase tracking-widest font-bold pb-4">
+                Alsolved Recruitment System &bull; Onboarding v2
+            </p>
 
         </div>
     </div>
 
     <script>
+
+        // Toggle guide accordion
+        function toggleGuide() {
+            const content = document.getElementById('guide-content');
+            const chevron = document.getElementById('guide-chevron');
+            const isHidden = content.classList.contains('hidden');
+            content.classList.toggle('hidden', !isHidden);
+            chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // Auto-open guide on first visit
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!sessionStorage.getItem('guide_seen')) {
+                toggleGuide();
+                sessionStorage.setItem('guide_seen', '1');
+            }
+        });
 
         function formatName(input) {
             let val = input.value.trim().toLowerCase();
@@ -165,7 +395,7 @@
         async function submitForm(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerHTML;
+            const originalHTML = btn.innerHTML;
 
             const nome = document.getElementById('nome').value;
             const cognome = document.getElementById('cognome').value;
@@ -179,12 +409,10 @@
             try {
                 const response = await fetch(ALSOLVED_CONFIG.webhooks.admin_invite, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        nome: nome,
-                        cognome: cognome,
+                        nome,
+                        cognome,
                         data_nascita: document.getElementById('data_nascita').value,
                         sesso: document.getElementById('sesso').value,
                         luogo_nascita: document.getElementById('luogo_nascita').value,
@@ -210,15 +438,10 @@
                 });
                 console.error(error);
             } finally {
-                btn.innerHTML = originalText;
+                btn.innerHTML = originalHTML;
                 btn.disabled = false;
                 btn.classList.remove('opacity-75', 'cursor-not-allowed');
             }
-        }
-
-        function resetForm() {
-            document.querySelector('form').reset();
-            document.getElementById('successMessage').classList.add('hidden');
         }
 
         function calculateTaxCode() {
@@ -261,15 +484,12 @@
                 const input = document.getElementById('codice_fiscale');
                 input.value = cf;
                 input.classList.add('border-green-500', 'text-green-600');
-                setTimeout(() => input.classList.remove('border-green-500', 'text-green-600'), 2000);
+                setTimeout(() => input.classList.remove('border-green-500', 'text-green-600'), 2500);
             }
         }
     </script>
     <script src="../js/comuni.js"></script>
     <script src="../js/cf_calculator.js"></script>
-</body>
-
-</html>
 </body>
 
 </html>

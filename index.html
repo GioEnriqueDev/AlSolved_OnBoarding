@@ -27,23 +27,41 @@
         </div>
     </nav>
 
+
     <!-- Main Container -->
     <main class="w-full max-w-4xl card-premium overflow-hidden bg-white relative z-20">
 
         <!-- Progress Header -->
-        <div class="bg-white border-b border-slate-100 p-6 md:p-8 flex items-center justify-between sticky top-0 z-10">
+        <div class="bg-white border-b border-slate-100 p-5 md:p-7 flex items-center justify-between sticky top-0 z-10">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900" id="step-title">Benvenuto</h1>
-                <p class="text-slate-500 text-sm" id="step-desc">Configura il tuo ambiente di lavoro.</p>
+                <h1 class="text-xl font-bold text-slate-900" id="step-title">Passo 1 — Inserisci i tuoi dati</h1>
+                <p class="text-slate-500 text-sm" id="step-desc">Ti serve per generare la tua email e la firma professionale.</p>
+                <a href="https://wa.me/393491119147" target="_blank"
+                   class="inline-flex items-center gap-2 mt-2.5 bg-green-50 hover:bg-green-100 border border-green-200 text-green-800 text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
+                    <i class="fa-brands fa-whatsapp text-green-600 text-sm"></i>
+                    Problemi? Scrivi al referente — <span class="text-red-600">non ad altri</span>
+                </a>
             </div>
-            <div class="flex items-center gap-2">
-                <div class="step-badge active" id="badge-1">1</div>
-                <div class="w-8 h-0.5 bg-slate-200"></div>
-                <div class="step-badge" id="badge-2">2</div>
-                <div class="w-8 h-0.5 bg-slate-200"></div>
-                <div class="step-badge" id="badge-3">3</div>
-                <div class="w-8 h-0.5 bg-slate-200"></div>
-                <div class="step-badge" id="badge-4">4</div>
+            <div class="flex items-center gap-1 md:gap-2 flex-shrink-0 ml-4">
+                <div class="flex flex-col items-center">
+                    <div class="step-badge active" id="badge-1">1</div>
+                    <span class="text-[9px] text-pink-500 font-bold mt-0.5 hidden md:block">Dati</span>
+                </div>
+                <div class="w-5 md:w-8 h-0.5 bg-slate-200"></div>
+                <div class="flex flex-col items-center">
+                    <div class="step-badge" id="badge-2">2</div>
+                    <span class="text-[9px] text-slate-400 font-bold mt-0.5 hidden md:block">Account</span>
+                </div>
+                <div class="w-5 md:w-8 h-0.5 bg-slate-200"></div>
+                <div class="flex flex-col items-center">
+                    <div class="step-badge" id="badge-3">3</div>
+                    <span class="text-[9px] text-slate-400 font-bold mt-0.5 hidden md:block">Inoltro</span>
+                </div>
+                <div class="w-5 md:w-8 h-0.5 bg-slate-200"></div>
+                <div class="flex flex-col items-center">
+                    <div class="step-badge" id="badge-4">4</div>
+                    <span class="text-[9px] text-slate-400 font-bold mt-0.5 hidden md:block">Firma</span>
+                </div>
             </div>
         </div>
 
@@ -52,14 +70,32 @@
 
             <!-- STEP 1: Dati Anagrafici -->
             <div id="step-1" class="step-container animate-fade-in">
-                <div class="max-w-md mx-auto space-y-6">
-                    <div class="text-center mb-8">
-                        <div
-                            class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-500 text-3xl">
-                            <i class="fa-solid fa-user-astronaut"></i>
+                <div class="max-w-lg mx-auto space-y-6">
+
+                    <!-- Panoramica passi -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Cosa farai in questa sessione</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-6 h-6 rounded-full bg-pink-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+                                <span class="text-slate-700">Inserisci nome, cognome e telefono</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+                                <span class="text-slate-500">Crea il tuo account Gmail aziendale</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+                                <span class="text-slate-500">Configura l'inoltro email (per ricevere i lead)</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+                                <span class="text-slate-500">Imposta la firma professionale su Gmail</span>
+                            </div>
                         </div>
-                        <h2 class="text-xl font-bold">Chi sei?</h2>
-                        <p class="text-slate-500">Inserisci i tuoi dati per generare la firma.</p>
+                        <p class="text-xs text-slate-400 mt-3 border-t border-slate-200 pt-2">
+                            <i class="fa-solid fa-clock mr-1"></i> Tempo stimato: <strong class="text-slate-600">~10 minuti</strong>
+                        </p>
                     </div>
 
                     <form onsubmit="goToStep(2); return false;" class="space-y-4">
@@ -74,17 +110,31 @@
                                 onblur="formatName(this)" oninput="updateSuggestedEmail()">
                         </div>
                         <div>
-                            <label class="label-google">Cellulare</label>
+                            <label class="label-google">Cellulare (con prefisso)</label>
                             <input type="tel" id="input-telefono" required class="input-google"
                                 placeholder="333 1234567" onblur="formatPhone(this)">
                         </div>
 
-                        <div class="pt-4">
-                            <button type="submit" class="btn-primary w-full flex items-center justify-center gap-2">
-                                Inizia Configurazione <i class="fa-solid fa-arrow-right"></i>
+                        <!-- Anteprima email generata -->
+                        <div id="email-preview-box" class="hidden bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+                            <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1">La tua nuova email aziendale sarà:</p>
+                            <p id="email-preview-text" class="font-mono font-bold text-indigo-700 text-base break-all"></p>
+                            <p class="text-xs text-indigo-400 mt-1">Questa è l'email che dovrai creare al passo successivo.</p>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="btn-primary w-full flex items-center justify-center gap-2 text-base py-4">
+                                Avanti: Crea Account <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </form>
+
+                    <!-- Help inline -->
+                    <div class="text-center">
+                        <a href="https://wa.me/393491119147" target="_blank" class="text-xs text-slate-400 hover:text-green-600 transition-colors">
+                            <i class="fa-brands fa-whatsapp mr-1"></i>Hai già un problema? Scrivimi prima di andare avanti
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -92,12 +142,17 @@
             <div id="step-2" class="step-container hidden">
                 <div class="max-w-2xl mx-auto space-y-6 text-center">
 
+                    <div class="text-left">
+                        <h2 class="text-xl font-bold text-slate-900 mb-1">Crea il tuo account Gmail aziendale</h2>
+                        <p class="text-sm text-slate-500">Questo account sarà il tuo strumento di lavoro ufficiale. <strong class="text-slate-700">Non usare un account personale già esistente.</strong></p>
+                    </div>
+
                     <div class="bg-amber-50 border-l-4 border-amber-500 p-4 text-left rounded-r-lg shadow-sm">
                         <p class="text-amber-900 font-bold text-sm uppercase tracking-wide mb-1">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Passo Fondamentale
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Regola Obbligatoria
                         </p>
                         <p class="text-amber-800 text-sm">
-                            Non inventare nulla. Usa <strong>ESATTAMENTE</strong> questi dati.
+                            Usa <strong>ESATTAMENTE</strong> i dati qui sotto — email e password mostrate. Non modificarli, non inventarne altri.
                         </p>
                     </div>
 
@@ -126,10 +181,63 @@
                         </div>
                     </div>
 
+                    <!-- Guida sub-step creazione account -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 text-left space-y-4">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Come creare l'account — segui nell'ordine</p>
+
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">A</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Clicca il bottone blu qui sotto</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Si aprirà la pagina di registrazione Google in una nuova scheda.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">B</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Usa il nome e cognome che hai inserito al passo 1</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Nei campi "Nome" e "Cognome" della registrazione Google.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">C</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Nel campo "Indirizzo email" incolla l'email sopra</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Clicca sulla card email in alto per copiarla, poi incollala nel campo.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">D</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Nel campo "Password" incolla la password sopra</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Stessa cosa: clicca la card password per copiarla.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">E</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Completa la verifica telefonica con il tuo numero</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Google potrebbe chiedere un numero per la verifica — usa il tuo cellulare personale.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="w-7 h-7 rounded-full bg-green-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">F</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Accetta i termini e completa la registrazione</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Poi torna su questa pagina e spunta le caselle qui sotto.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 border border-red-100 rounded-lg p-3 flex gap-2 items-start">
+                            <i class="fa-solid fa-circle-xmark text-red-500 flex-shrink-0 mt-0.5"></i>
+                            <p class="text-xs text-red-700"><strong>Attenzione:</strong> se Google dice che l'email esiste già, contatta subito il tuo referente su WhatsApp — non provare a cambiarla da solo.</p>
+                        </div>
+                    </div>
+
                     <a href="https://accounts.google.com/signup" target="_blank"
                         onclick="document.getElementById('chk-acct').checked = true; checkStep2();"
                         class="block w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fa-brands fa-google mr-2"></i> 3. CLICCA QUI PER CREARE L'ACCOUNT
+                        <i class="fa-brands fa-google mr-2"></i> CLICCA QUI — APRI GOOGLE REGISTRAZIONE
                     </a>
 
                     <!-- Verification Checklist -->
@@ -157,11 +265,16 @@
                         </div>
                     </div>
 
+                    <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-3">
+                        <i class="fa-brands fa-whatsapp text-green-500 mr-1"></i>
+                        Bloccato qui? <a href="https://wa.me/393491119147" target="_blank" class="font-bold text-green-600 underline hover:text-green-700">Contatta il tuo referente su WhatsApp</a> — rispondo subito.
+                    </div>
+
                     <div class="flex gap-4 pt-2">
                         <button onclick="goToStep(1)" class="btn-secondary w-1/3">Indietro</button>
                         <button id="btn-step-2" onclick="confirmStep(3)" disabled
                             class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">
-                            Ho Fatto Tutto <i class="fa-solid fa-lock ml-2"></i>
+                            Account Creato — Avanti <i class="fa-solid fa-lock ml-2"></i>
                         </button>
                     </div>
                 </div>
@@ -170,10 +283,17 @@
             <!-- STEP 3: Configurazione Inoltro -->
             <div id="step-3" class="step-container hidden">
                 <div class="max-w-3xl mx-auto space-y-8">
-                    <div class="text-center">
-                        <h2 class="text-2xl font-bold mb-2">Ora Collega le Email 🔗</h2>
-                        <p class="text-slate-500">Senza questo passaggio <span class="text-red-500 font-bold">non verrai
-                                pagato</span> perché non vedremo i contratti.</p>
+                    <div class="text-left">
+                        <h2 class="text-2xl font-bold mb-1">Collega le email (Inoltro) 🔗</h2>
+                        <p class="text-slate-500 text-sm">Senza questo passaggio <span class="text-red-500 font-bold">non riceverai i lead</span> e non potrai lavorare. Segui esattamente i 3 passi qui sotto.</p>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 items-start">
+                        <i class="fa-solid fa-circle-info text-blue-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <p class="text-sm font-bold text-blue-800 mb-1">Cosa significa "inoltro email"?</p>
+                            <p class="text-xs text-blue-700">Ogni email che ricevi sulla tua casella aziendale verrà automaticamente copiata al sistema di AlSolved. Questo ci permette di monitorare i contratti e accreditarti le provvigioni.</p>
+                        </div>
                     </div>
 
                     <div
@@ -278,10 +398,15 @@
                         </div>
                     </div>
 
+                    <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-3">
+                        <i class="fa-brands fa-whatsapp text-green-500 mr-1"></i>
+                        Hai problemi con l'inoltro? <a href="https://wa.me/393491119147" target="_blank" class="font-bold text-green-600 underline hover:text-green-700">Scrivimi su WhatsApp</a> — è normale avere dubbi qui.
+                    </div>
+
                     <div class="flex gap-4 pt-4">
                         <button onclick="goToStep(2)" class="btn-secondary w-1/3">Indietro</button>
                         <button id="btn-step-3" onclick="confirmStep(4)" disabled
-                            class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">Fatto, Avanti <i
+                            class="btn-primary w-2/3 bg-slate-300 cursor-not-allowed opacity-50">Inoltro Attivo — Avanti <i
                                 class="fa-solid fa-lock ml-2"></i></button>
                     </div>
                 </div>
@@ -291,8 +416,9 @@
             <div id="step-4" class="step-container hidden">
                 <div class="max-w-2xl mx-auto space-y-8">
 
-                    <div class="text-center">
-                        <h2 class="text-2xl font-bold">Ultimo passaggio: La Firma ✍️</h2>
+                    <div class="text-left">
+                        <h2 class="text-2xl font-bold mb-1">Ultimo passo: Imposta la Firma ✍️</h2>
+                        <p class="text-slate-500 text-sm">La firma professionale deve comparire in <strong>tutte</strong> le email che invii. Senza di essa le tue comunicazioni non sembreranno ufficiali. Segui i 3 passi della guida illustrata.</p>
                     </div>
 
                     <!-- Signature Preview -->
@@ -420,6 +546,11 @@
                         </div>
                     </div>
 
+                    <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-3">
+                        <i class="fa-brands fa-whatsapp text-green-500 mr-1"></i>
+                        Firma non funziona? <a href="https://wa.me/393491119147" target="_blank" class="font-bold text-green-600 underline hover:text-green-700">Contattami su WhatsApp</a> prima di andare avanti.
+                    </div>
+
                     <div class="flex gap-4 pt-4">
                         <button onclick="goToStep(3)" class="btn-secondary w-1/3">Indietro</button>
                         <button id="btn-step-4" onclick="finishOnboarding(event)" disabled
@@ -507,12 +638,21 @@
             per chiudere</p>
     </div>
 
-    <!-- WHATSAPP SUPPORT (EXPANDED) -->
-    <a href="https://wa.me/393491119147" target="_blank"
-        class="fixed bottom-6 right-6 bg-[#25D366] text-white px-6 py-3 rounded-full font-bold shadow-xl hover:bg-[#128C7E] transition-all z-50 flex items-center gap-3 animate-bounce-slow">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span>CLICCA QUI PER AIUTO</span>
-    </a>
+    <!-- WHATSAPP SUPPORT BUTTON -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+        <!-- Label callout -->
+        <div id="wa-callout" class="bg-white border border-slate-200 rounded-2xl shadow-lg px-4 py-3 max-w-[220px] text-right transition-all">
+            <p class="text-xs font-bold text-slate-800">Sei bloccato?</p>
+            <p class="text-xs text-slate-500 mt-0.5">Scrivi <strong>al tuo referente</strong> — non a colleghi o ad Ale.</p>
+            <button onclick="document.getElementById('wa-callout').style.display='none'" class="text-slate-300 hover:text-slate-500 text-xs mt-1">chiudi ✕</button>
+        </div>
+        <!-- Button -->
+        <a href="https://wa.me/393491119147" target="_blank"
+            class="bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3 rounded-full font-black shadow-xl transition-all flex items-center gap-3 text-sm">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            <span>Aiuto Referente</span>
+        </a>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -603,9 +743,24 @@
             if (nome && cognome) {
                 const email = `${nome}${cognome}.alsolved@gmail.com`;
                 document.getElementById('display-email').innerText = email;
-                state.email = email; // Update state
+                state.email = email;
+
+                // Show preview box in Step 1
+                const previewBox = document.getElementById('email-preview-box');
+                const previewText = document.getElementById('email-preview-text');
+                previewBox.classList.remove('hidden');
+                previewText.textContent = email;
             }
         }
+
+        // Step titles for dynamic header
+        const STEP_TITLES = {
+            1: { title: 'Passo 1 — Inserisci i tuoi dati', desc: 'Ti serve per generare la tua email aziendale e la firma professionale.' },
+            2: { title: 'Passo 2 — Crea il tuo account Gmail', desc: 'Segui i passaggi A→F per creare l\'account con i dati esatti forniti.' },
+            3: { title: 'Passo 3 — Configura l\'inoltro email', desc: 'Fondamentale: senza questo step non riceverai i lead da lavorare.' },
+            4: { title: 'Passo 4 — Imposta la firma professionale', desc: 'Copia e incolla la firma generata su Gmail, poi invia l\'email di prova.' },
+            success: { title: 'Configurazione Completata! 🚀', desc: 'Benvenuto nel team AlSolved.' }
+        };
 
         // --- NEW: PROFESSIONAL CONFIRMATION ---
         function confirmStep(stepTarget) {
@@ -709,6 +864,14 @@
             }
 
             currentStep = step;
+
+            // Update header title/desc
+            const stepInfo = STEP_TITLES[step];
+            if (stepInfo) {
+                document.getElementById('step-title').textContent = stepInfo.title;
+                document.getElementById('step-desc').textContent = stepInfo.desc;
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
